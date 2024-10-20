@@ -14,11 +14,12 @@ class HumanB
 		Weapon *weapon;
 
 	public:
-		HumanB(std::string name, Weapon &weapon);
+		HumanB(std::string name);
 		~HumanB();
 		void attack(void);
 		Weapon &getWeapon();
 		void setWeapon(Weapon &weapon);
+
 };
 
 #endif

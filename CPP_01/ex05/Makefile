@@ -1,9 +1,9 @@
 
-NAME = ex03
+NAME = ex05
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = main.cpp humanA.cpp humanB.cpp weapon.cpp
+FILES = 
 
 OBJS = $(FILES:.cpp=.o)
 
