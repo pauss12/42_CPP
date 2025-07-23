@@ -28,6 +28,8 @@ void PhoneBook::addContact()
 		std::cout << "The phone book is full. I am going to delete the first contact" << std::endl;
 		contactCount = 0;
 	}
+	if (std::cin.eof())
+			return ;
 
 	// Ask the user to enter the contact information.
 	std::cout << "Insert first name" << std::endl;
@@ -70,6 +72,8 @@ void PhoneBook::searchContact()
 		std::cout << "There are no contacts to search for.\n" << std::endl;
 		return;
 	}
+	if (std::cin.eof())
+			return ;
 
 	// Display the saved contacts as a list of 4 columns : index, first name, last name and nickname.
 	// ◦ Each column must be 10 characters wide.A pipe character(’|’) separates them.The text must be right - aligned.If the text is longer than the column, it must be truncated and the last displayable character must be replaced by a dot(’.’).
