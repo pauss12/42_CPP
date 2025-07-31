@@ -8,20 +8,17 @@ class PhoneBook
 	private:
 		Contact contacts[8];
 		int		contactCount;
+		// int		ContactId;
 
 	public:
 
-		// CONSTRUCTOR --------------------------------------------------
 		PhoneBook();
-
-		// DESTRUCTOR --------------------------------------------------
 		~PhoneBook();
 
 		void	addContact();
 		void	searchContact();
-
-	// METHODS ---------------------------------------------------
-	void printContacts(Contact contacts[8], int contactCount);
+		void	printContacts(Contact contacts[8], int contactCount);
+		void	print_column(const char *text, int width);
 };
 
 #endif

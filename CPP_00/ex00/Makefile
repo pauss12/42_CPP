@@ -1,5 +1,5 @@
 
-NAME = megaphone00
+NAME = megaphone
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
@@ -10,7 +10,7 @@ OBJS = $(FILES:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) 
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(OBJS) $(CFLAGS) -o $(NAME)
 	@echo " Compilation finished! 👍"
 
 clean:

@@ -20,7 +20,7 @@ int main()
 		else if (command == "EXIT")
 			break;
 		else
-			std::cout << "Invalid command" << std::endl;
+			std::cout << RED "Invalid command" RESET << std::endl;
 	}
 	return (0);
 }
