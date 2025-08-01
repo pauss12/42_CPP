@@ -1,11 +1,6 @@
 #include <iostream>
 #include <cctype>
 
-static void print_error()
-{
-
-}
-
 int main(int argc, char **argv) 
 {
     if (argc == 1) 

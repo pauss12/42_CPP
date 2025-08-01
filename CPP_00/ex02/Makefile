@@ -1,14 +1,15 @@
-NAME = ex02
+NAME = account
 CXX = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = 
+FILES = Account.cpp tests.cpp 
+		
 OBJS = $(FILES:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS) 
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo " Compilation finished! 👍"
 
 clean:
