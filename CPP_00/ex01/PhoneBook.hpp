@@ -8,7 +8,7 @@ class PhoneBook
 	private:
 		Contact contacts[8];
 		int		contactCount;
-		// int		ContactId;
+		int		contactId;
 
 	public:
 

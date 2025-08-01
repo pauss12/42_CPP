@@ -27,11 +27,11 @@ void	Contact::setLastName(std::string lastName)
 
 void	Contact::setNickname(std::string nickname)
 {
-	if (nickname.empty())
-	{
-		// print_error("Null Nickname");
-		return ;
-	}
+	// if (nickname.empty())
+	// {
+	// 	print_error("Null Nickname");
+	// 	return ;
+	// }
 	this->nickname = nickname;
 }
 

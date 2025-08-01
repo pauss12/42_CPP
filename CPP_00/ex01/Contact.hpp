@@ -40,6 +40,8 @@ class Contact
 		std::string	getNickname();
 		std::string	getPhoneNumber();
 		std::string	getDarkestSecret();
+
+	void print_column(const char *text, int width);
 };
 
 #endif
