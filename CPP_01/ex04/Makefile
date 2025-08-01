@@ -1,9 +1,9 @@
 
-NAME = ex04
+NAME = file
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = 
+FILES = main.cpp Replace.cpp
 
 OBJS = $(FILES:.cpp=.o)
 
