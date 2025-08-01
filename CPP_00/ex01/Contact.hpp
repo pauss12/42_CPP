@@ -29,7 +29,7 @@ class Contact
 		std::string	getPhoneNumber();
 		std::string	getDarkestSecret();
 
-		std::string	checkSetters(std::string value);
+		std::string	checkSetters(std::string value, int isPhoneNumber);
 };
 
 #endif

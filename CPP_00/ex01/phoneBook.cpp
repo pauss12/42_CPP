@@ -41,7 +41,7 @@ void PhoneBook::addContact()
 	std::cout << "Insert phone number ==> ";
 	contacts[contactId].setPhoneNumber();
 
-	std::cout << "Insert darkest secret ==> ";		return;
+	std::cout << "Insert darkest secret ==> ";
 	contacts[contactId].setDarkestSecret();
 
 	std::cout << GREEN "Contact added successfully." RESET << std::endl << std::endl;

@@ -15,27 +15,44 @@ Contact::~Contact()
 	return ;
 }
 
-std::string Contact::checkSetters(std::string value)
+std::string Contact::checkSetters(std::string value, int isPhoneNumber)
 {
-	if (value.empty())
+
+	if (isPhoneNumber == 1)
 	{
-		print_error("Null value provided");
-		return "";
+		if (value.find_first_not_of("0123456789") != std::string::npos)
+		{
+			print_error("Phone number can only contain digits");
+			return "";
+		}
+		else if (value.length() < 9 || value.length() > 9 && isPhoneNumber == 1)
+		{
+			print_error("Phone number must be exactly 9 characters long");
+			return "";
+		}
+		else if (value[0] == '0')
+		{
+			print_error("Phone number cannot start with 0");
+			return "";
+		}
 	}
-	if (value.length() > 255)
+	else
 	{
-		print_error("Value exceeds maximum length of 255 characters");
-		return "";
-	}
-	if (value.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ") != std::string::npos)
-	{
-		print_error("Value contains invalid characters");
-		return "";
-	}
-	if (value.find("  ") != std::string::npos)
-	{
-		print_error("Value contains consecutive spaces");
-		return "";
+		if (value.empty())
+		{
+			print_error("Null value provided");
+			return "";
+		}
+		if (value.length() > 255)
+		{
+			print_error("Value exceeds maximum length of 255 characters");
+			return "";
+		}
+		if (value.find("  ") != std::string::npos)
+		{
+			print_error("Value contains consecutive spaces");
+			return "";
+		}
 	}
 	return (value);
 }
@@ -53,7 +70,7 @@ void	Contact::setFirstName()
 			std::cout << PURPLE "\nEOF signal detected" RESET << std::endl;
 			exit(1);
 		}
-		if (!checkSetters(firstName).empty())
+		if (!checkSetters(firstName, 0).empty())
 			break ;
 		std::cout << "Enter a valid first name: ";
 	}
@@ -73,7 +90,7 @@ void	Contact::setLastName()
 			std::cout << PURPLE "\nEOF signal detected" RESET << std::endl;
 			exit(1);
 		}
-		if (!checkSetters(lastName).empty())
+		if (!checkSetters(lastName, 0).empty())
 			break ;
 		std::cout << "Enter a valid last name: ";
 	}
@@ -93,7 +110,7 @@ void	Contact::setNickname()
 			std::cout << PURPLE "\nEOF signal detected" RESET << std::endl;
 			exit(1);
 		}
-		if (!checkSetters(nickname).empty())
+		if (!checkSetters(nickname, 0).empty())
 			break ;
 		std::cout << "Enter a valid nickname: ";
 	}
@@ -113,7 +130,7 @@ void	Contact::setPhoneNumber()
 			std::cout << PURPLE "\nEOF signal detected" RESET << std::endl;
 			exit(1);
 		}
-		if (!checkSetters(phoneNumber).empty())
+		if (!checkSetters(phoneNumber, 1).empty())
 			break ;
 		std::cout << "Enter a valid phone number: ";
 	}
@@ -133,7 +150,7 @@ void	Contact::setDarkestSecret()
 			std::cout << PURPLE "\nEOF signal detected" RESET << std::endl;
 			exit(1);
 		}
-		if (!checkSetters(darkestSecret).empty())
+		if (!checkSetters(darkestSecret, 0).empty())
 			break ;
 		std::cout << "Enter a valid darkest secret: ";
 	}
