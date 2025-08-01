@@ -1,5 +1,5 @@
 
-NAME = zombie
+NAME = zombieHorde
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 

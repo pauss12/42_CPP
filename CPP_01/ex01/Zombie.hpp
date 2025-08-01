@@ -1,9 +1,12 @@
 #ifndef ZOMBIE_HPP
 #define ZOMBIE_HPP
 
-#include <iostream>
-#include <string>
-#include <iomanip>
+# include <iostream>
+# include <string>
+# include <iomanip>
+
+# define CYAN "\033[0;36m"
+# define RESET "\033[0m"
 
 class Zombie
 {
