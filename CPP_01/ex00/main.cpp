@@ -6,10 +6,6 @@ int main(int argc, char **argv)
 
 	if (argc == 1)
 	{
-		Zombie foo("Foo");
-		foo.announce();
-
-		std::cout << std::endl;
 		Zombie *memo = newZombie("Paula");
 		memo->announce();
 		delete (memo);
