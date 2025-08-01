@@ -1,9 +1,9 @@
 
-NAME = ex03
+NAME = violence
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = main.cpp humanA.cpp humanB.cpp weapon.cpp
+FILES = main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
 
 OBJS = $(FILES:.cpp=.o)
 

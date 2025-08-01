@@ -8,12 +8,8 @@ HumanB::HumanB(std::string name)
 
 HumanB::~HumanB()
 {
+	std::cout << GREEN << this->name << RESET << " has been destroyed." << std::endl;
     return ;
-}
-
-void HumanB::attack()
-{
-    std::cout << this->name << " attacks with his " << this->weapon->getType() << std::endl;
 }
 
 void HumanB::setWeapon(Weapon &weapon)
@@ -21,7 +17,10 @@ void HumanB::setWeapon(Weapon &weapon)
     this->weapon = &weapon;
 }
 
-Weapon& HumanB::getWeapon()
+void HumanB::attack()
 {
-    return (*this->weapon);
+    if (this->weapon)
+		std::cout << CYAN << this->name << RESET << " attacks with their " << PURPLE << this->weapon->getType() << RESET << std::endl;
+	else
+		std::cout << ORANGE << this->name << " is unarmed and cannot attack." << RESET << std::endl;
 }
