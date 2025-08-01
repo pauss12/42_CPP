@@ -14,6 +14,6 @@ int main(int argc, char **argv)
 		randomChump("Nombre Random");
 	}
 	else
-		std::cout << "This program does not need arguments" << std::endl;
+		std::cout << ORANGE "This program does not need arguments" << RESET << std::endl;
 	return (0);
 }

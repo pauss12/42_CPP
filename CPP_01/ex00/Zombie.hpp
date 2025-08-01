@@ -6,6 +6,7 @@
 # include <iomanip>
 
 # define CYAN "\033[0;36m"
+# define ORANGE "\001\033[38;5;208m\002"
 # define RESET "\033[0m"
 
 class Zombie
