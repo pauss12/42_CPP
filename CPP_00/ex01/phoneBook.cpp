@@ -21,8 +21,6 @@ PhoneBook::~PhoneBook()
 //ADD CONTACT -----------------------------------------------------------------------------------
 void PhoneBook::addContact()
 {
-	std::string line;
-
 	if (contactCount == 8)
 	{
 		std::cout << BLUE "The phone book is full. I am going to delete the first contact" RESET << std::endl << std::endl;
@@ -30,26 +28,22 @@ void PhoneBook::addContact()
 	}
 	if (std::cin.eof())
 			return ;
+		
 	std::cout << "Insert first name ==> ";
-	if (!std::getline(std::cin, line))
-		return;
-	contacts[contactId].setFirstName(line);
+	contacts[contactId].setFirstName();
+
 	std::cout << "Insert last name  ==> ";
-	if (!std::getline(std::cin, line))
-		return;
-	contacts[contactId].setLastName(line);
+	contacts[contactId].setLastName();
+
 	std::cout << "Insert nickname ==> ";
-	if (!std::getline(std::cin, line))
-		return;
-	contacts[contactId].setNickname(line);
+	contacts[contactId].setNickname();
+
 	std::cout << "Insert phone number ==> ";
-	if (!std::getline(std::cin, line))
-		return;
-	contacts[contactId].setPhoneNumber(line);
-	std::cout << "Insert darkest secret ==> ";
-	if (!std::getline(std::cin, line))
-		return;
-	contacts[contactId].setDarkestSecret(line);
+	contacts[contactId].setPhoneNumber();
+
+	std::cout << "Insert darkest secret ==> ";		return;
+	contacts[contactId].setDarkestSecret();
+
 	std::cout << GREEN "Contact added successfully." RESET << std::endl << std::endl;
 	if (contactCount < 8)
 		contactCount++;
@@ -109,11 +103,11 @@ void PhoneBook::printContacts(Contact contacts[8], int contactCount)
 	for (int i = 0; i < contactCount; i++)
 	{
 		std::cout << std::right << std::setw(column_width) << i << " | ";
-		PhoneBook::print_column(contacts[i].getFirstName().c_str(), column_width);
+		print_column(contacts[i].getFirstName(), column_width);
 		std::cout << " | ";
-		PhoneBook::print_column(contacts[i].getLastName().c_str(), column_width);
+		print_column(contacts[i].getLastName(), column_width);
 		std::cout << " | ";
-		PhoneBook::print_column(contacts[i].getNickname().c_str(), column_width);
+		print_column(contacts[i].getNickname(), column_width);
 		std::cout << std::endl;
 	}
 }

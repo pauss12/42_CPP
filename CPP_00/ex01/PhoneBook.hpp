@@ -18,7 +18,6 @@ class PhoneBook
 		void	addContact();
 		void	searchContact();
 		void	printContacts(Contact contacts[8], int contactCount);
-		void	print_column(const char *text, int width);
 };
 
 #endif

@@ -1,18 +1,18 @@
 
-# include "PhoneBook.hpp"
+# include "utils.hpp"
 
-void print_column(const char *text, int width)
+void print_column(std::string text, int width)
 {
 	int len;
 
 	if (width <= 0)
 		return ;
-	if (text == nullptr)
+	if (text.empty())
 	{
 		std::cout << std::string(width, ' ');
 		return ;
 	}
-    len = strlen(text);
+    len = text.length();
 	if (len > width)
 	{
 		for (int i = 0; i < width - 1; i++)
@@ -31,4 +31,8 @@ void print_column(const char *text, int width)
 	}
 }
 
-//
+void print_error(std::string error)
+{
+	std::cerr << RED << "Error: " RESET << std::endl << error << std::endl << std::endl;
+}
+
