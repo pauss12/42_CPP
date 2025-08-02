@@ -19,14 +19,21 @@ class Replace
 		std::string filename;
 		std::string lookFor;
 		std::string replaceWith;
+		std::string createdFile;
+
 		std::ifstream infile;
 		std::ofstream outfile;
 
+		int			checkInfile(void);
+		void		writeFile(void);
+		std::string	replaceLine(std::string line)
+;
 	public:
 		Replace();
-		Replace(const std::string &file, const std::string &lookFor, const std::string &replaceWith);
-		void CreateNewFile(void);
 		~Replace();
+		Replace(std::string filename, std::string lookFor, std::string replaceWith);
+		void	CreateNewFile(void);
+		
 };
 
 # endif
