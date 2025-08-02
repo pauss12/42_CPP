@@ -1,9 +1,9 @@
 
-NAME = ex05
+NAME = harl
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = 
+FILES = main.cpp Harl.cpp
 
 OBJS = $(FILES:.cpp=.o)
 
