@@ -1,9 +1,9 @@
 
-NAME = ex06
+NAME = harlFilter
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = 
+FILES = HarlFilter.cpp main.cpp
 
 OBJS = $(FILES:.cpp=.o)
 
