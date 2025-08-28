@@ -3,7 +3,7 @@ NAME = fixedPoint
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = main.cpp
+FILES = main.cpp Fixed.cpp
 
 OBJS = $(FILES:.cpp=.o)
 
