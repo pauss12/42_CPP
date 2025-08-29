@@ -16,6 +16,7 @@
 class Fixed 
 {
     private:
+        // Siempre se va a guardar el valor en bits, ya que es la unidad más pequeña.
         int _value;
         static const int _bits = 8;
 

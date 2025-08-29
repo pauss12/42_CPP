@@ -5,13 +5,17 @@ Fixed::Fixed()
     std::cout << PURPLE << "Default constructor called" << RESET << std::endl;
     this->_value = 0;
 }
-
+/**
+ * Constructor copia -- Crea un nuevo objeto de la clase, a partir de otro
+ */
 Fixed::Fixed(const Fixed &orig)
 {
     std::cout << ORANGE << "Copy constructor called " << RESET << std::endl;
     this->_value = orig.getRawBits();
 }
-
+/**
+ * Una sobrecarga del operador de asignación de copia.
+ */
 Fixed& Fixed::operator=(const Fixed& orig)
 {
     std::cout << CYAN << "Copy assignment operator called " << RESET << std::endl;
@@ -37,3 +41,14 @@ void Fixed::setRawBits(int const raw)
 {
     this->_value = raw;
 }
+
+int Fixed::toInt(void) const
+{
+
+}
+
+float Fixed::toFloat(void) const
+{
+
+}
+
