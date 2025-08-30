@@ -58,4 +58,60 @@ La solución es **desplazar los bits** del número entero a la izquierda, reserv
  
     `00000000 00000000 00101010 00000000`
 
+## Operación CONSTRUCTOR con un float
+
+En el caso del número `42.42f`; para no perder la información, hay que multiplicarlo por el numero de bits reservados; es decir, $2^8$  == 256.
+
+***42.42f X 256 (1 << _bits) = 10859.52***
+
+Ahora la parte fraccionaria ".42", estaria guardada en la parte entera del resultado "10859", por eso se puede redondear 
+sin perder mucha informacion.
+
+`roundf(value * 256)` == `roundf(42.42f X 256)` == `10860`
+
+```zsh
+   Fixed::Fixed(float const value)
+   {
+      std::cout << "Float constructor called" << std::endl;
+      this->_value = roundf(value * (1 << _bits));
+   }
+```
+
+## Operación TO INT 
+
+Es decir, transformar el value, que esta en bits, y transformarlo a numero entero.
+
+   `00000000 00000000 00101010 00000000`
+
+Se aplicaría la siguiente operación:
+
+```bash
+   int Fixed::toInt(void) const
+   {
+      return (this->_value >> this->_bits);
+   }
+```
+
+Para tranformarlo en: `00000000 00000000 00000000 00101010`
+
+## Operación TO FLOAT
+
+En este caso, al contrario que en el constructor de float, en vez de multiplicar por el numero de bits reservados, en este caso seria dividir entre ese numero, es decir, dividir  por $2^8$. Por lo que la operacion seria: 
+
+```zsh
+   float Fixed::toFloat(void) const
+   {
+      return (this->_value / (float)(1 << this->_bits));
+   }
+```
+Para poder transformarlo en: `10859 / $2^8$` == `10859 / 256` == `42.41796875` ==  `42.42`
+
+## BINARIO NÚMERO DE PUNTO FLOTANTE
+
+En este caso, es diferente, se divide en 3 partes:
+
+   1. **Signo (1 bit)**: Si es `0` significa que el numero es positivo. Si es `1` significa que el número es negativo.
+   2. **Exponente (8 bits)**: Indican donde esta el punto decimal. 
+   3. **Mantisa (23 bits)**: Representan los digitos más representativos del número
+
 
