@@ -16,6 +16,20 @@ Fixed::Fixed(int const value)
     this->_value = value << _bits;
 }
 
+/**
+ * Una sobrecarga del operador de asignación de copia.
+ * El valor de _bits se inicializa desde la clase en 8, ya que es una constante.
+ */
+Fixed& Fixed::operator=(const Fixed& orig)
+{
+    if (this != &orig)
+    {
+        std::cout << CYAN << "Copy assignment operator called " << RESET << std::endl;
+        this->_value = orig._value;
+    }
+    return (*this);
+}
+
 Fixed::Fixed(float const value)
 {
     std::cout << ROSE << "Float constructor called" << RESET << std::endl;
@@ -29,21 +43,7 @@ Fixed::Fixed(float const value)
 Fixed::Fixed(const Fixed &orig)
 {
     std::cout << ORANGE << "Copy constructor called " << RESET << std::endl;
-    this->_value = orig.getRawBits();
-}
-
-/**
- * Una sobrecarga del operador de asignación de copia.
- * El valor de _bits se inicializa desde la clase en 8, ya que es una constante.
- */
-Fixed& Fixed::operator=(const Fixed& orig)
-{
-    if (this != &orig)
-    {
-        std::cout << CYAN << "Copy assignment operator called " << RESET << std::endl;
-        this->_value = orig._value;
-    }
-    return (*this);
+    *this = orig;
 }
 
 /**

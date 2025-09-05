@@ -34,8 +34,8 @@ class Fixed
         Fixed& operator=(const Fixed& orig);
         int getRawBits(void) const;
         void setRawBits(int const raw);
-        int toInt( void ) const;
-        float toFloat( void ) const;
+        int toInt(void) const;
+        float toFloat(void) const;
 
         // La sobrecarga del operador "<<" es una funcion global; con el atributo "friend" le estas diciendo 
         // que esta funcion pueda acceder a los valores privados de la clase
