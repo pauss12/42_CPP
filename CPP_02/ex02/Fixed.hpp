@@ -32,6 +32,20 @@ class Fixed
         ~Fixed();
         Fixed(const Fixed &orig);
 
+		// GETTERS Y SETTERS
+        int getRawBits(void) const;
+        void setRawBits(int const raw);
+
+        // FUNCIONES PARA SACAR MAXIMO / MINIMO
+        static Fixed&	min(Fixed& numA, Fixed& numB);
+		static const Fixed&	min(const Fixed& numA, const Fixed& numB);
+		static Fixed&	max(Fixed& numA, Fixed& numB);
+		static const	Fixed&	max(const Fixed& numA, const Fixed& numB);
+
+        // OTRAS FUNCIONES 
+        int toInt(void) const;
+        float toFloat(void) const;
+
         // SOBRECARGA DE OPERADORES ---
         Fixed& operator=(const Fixed& orig);
         // La sobrecarga del operador "<<" es una funcion global; con el atributo "friend" le estas diciendo 
@@ -54,20 +68,6 @@ class Fixed
 		Fixed operator++(int);
 		Fixed& operator--();
 		Fixed operator--(int);
-
-        // GETTERS Y SETTERS
-        int getRawBits(void) const;
-        void setRawBits(int const raw);
-
-        // FUNCIONES PARA SACAR MAXIMO / MINIMO
-        static Fixed&	min(Fixed& numA, Fixed& numB);
-		static const Fixed&	min(const Fixed& numA, const Fixed& numB);
-		static Fixed&	max(Fixed& numA, Fixed& numB);
-		static const	Fixed&	max(const Fixed& numA, const Fixed& numB);
-
-        // OTRAS FUNCIONES 
-        int toInt(void) const;
-        float toFloat(void) const;
 };
 
 #endif
