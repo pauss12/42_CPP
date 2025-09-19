@@ -25,6 +25,16 @@ ClapTrap::ClapTrap(const ClapTrap &orig)
     this->_attackDamage = orig._attackDamage;
 }
 
+
+#int main()
+#{
+#	State log;
+#
+#	log.msg(YELLOW, State::t_state STATE_WARING, "hello %s my name is %s", "world", "dylan");
+#}
+
+# << << << vargs << 
+
 ClapTrap& ClapTrap::operator=(const ClapTrap& orig)
 {
     //Se comprueba si es la misma direccion de memoria
