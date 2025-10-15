@@ -21,36 +21,15 @@ ClapTrap::ClapTrap(const ClapTrap &orig)
 	*this = orig;
 }
 
-
-#int main()
-#{
-#	State log;
-#
-#	log.msg(YELLOW, State::t_state STATE_WARING, "hello %s my name is %s", "world", "dylan");
-#}
-
-# << << << vargs << 
-
 ClapTrap& ClapTrap::operator=(const ClapTrap& orig)
 {
-<<<<<<< HEAD
-	//Se comprueba si es la misma direccion de memoria
-	if (this != &orig)
-	{
-=======
     //Se comprueba si es la misma direccion de memoria
     if (this != &orig)
     {
->>>>>>> 0e01c90fba61ec6273dbd655225d2389316b91c6
 		this->_name = orig._name;
 		this->_hitPoints = orig._hitPoints;
 		this->_energyPoints = orig._energyPoints;
 		this->_attackDamage = orig._attackDamage;
-<<<<<<< HEAD
-	}
-	return (*this);
-}
-=======
     }
 	return (*this);
 }
@@ -98,4 +77,3 @@ void ClapTrap::beRepaired(unsigned int amount)
 	else
 		std::cout << ORANGE << "ClapTrap " << this->_name << " has no energy points or hit points left to repair." << RESET << std::endl;
 }
->>>>>>> 0e01c90fba61ec6273dbd655225d2389316b91c6
