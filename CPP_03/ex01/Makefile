@@ -1,9 +1,9 @@
 
-NAME = fixedPoint
+NAME = clapTrap
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = main.cpp Fixed.cpp
+FILES = main.cpp ClapTrap.cpp
 
 OBJS = $(FILES:.cpp=.o)
 
