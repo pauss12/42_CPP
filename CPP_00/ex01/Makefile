@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pmendez- <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/10/15 21:06:27 by pmendez-          #+#    #+#              #
+#    Updated: 2025/10/15 21:06:29 by pmendez-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = phoneBook
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = PhoneBook.cpp Contact.cpp main.cpp utils.cpp
+FILES = PhoneBook.cpp Contact.cpp main.cpp Utils.cpp
 OBJS = $(FILES:.cpp=.o)
 
 all: $(NAME)
