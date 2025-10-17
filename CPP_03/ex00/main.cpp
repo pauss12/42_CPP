@@ -1,14 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmendez- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/17 21:37:23 by pmendez-          #+#    #+#             */
+/*   Updated: 2025/10/17 21:37:26 by pmendez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 # include "ClapTrap.hpp"
 
 int main(void)
 {
-<<<<<<< HEAD
-	ClapTrap claptrap("Clappy");
-	claptrap.attack("target");
-	claptrap.takeDamage(5);
-	claptrap.beRepaired(3);
-=======
 	// Con un solo objeto, se prueba que las funciones funcionan correctamente
 	ClapTrap a("CL4P-TP");
 	a.attack("Target1");
@@ -17,7 +22,6 @@ int main(void)
 	a.beRepaired(3);
 	a.takeDamage(10);
 	a.beRepaired(5);
->>>>>>> 0e01c90fba61ec6273dbd655225d2389316b91c6
-	
+
 	return (0);
 }
