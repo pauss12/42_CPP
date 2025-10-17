@@ -3,29 +3,37 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pmendez- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/15 20:42:43 by pmendez-          #+#    #+#              #
-#    Updated: 2025/10/15 20:42:45 by pmendez-         ###   ########.fr        #
+#    Updated: 2025/10/17 22:50:11 by pmendez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = megaphone
 CXX = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+OBJ_DIR = obj
 
 FILES = Megaphone.cpp
 
-OBJS = $(FILES:.cpp=.o)
+OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
 
 all: $(NAME)
 
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
 $(NAME): $(OBJS) 
-	@$(CXX) $(OBJS) $(CFLAGS) -o $(NAME)
+	@$(CXX) $(OBJS) $(CXXFLAGS) -o $(NAME)
 	@echo " Compilation finished! 👍"
+
+$(OBJ_DIR)/%.o: %.cpp $(OBJ_DIR)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJS)
+	@rmdir --ignore-fail-on-non-empty $(OBJ_DIR) 2> /dev/null || true
 	@echo "Cleaning finished! 🧹"
 
 fclean: clean

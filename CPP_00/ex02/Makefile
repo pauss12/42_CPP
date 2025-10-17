@@ -3,29 +3,35 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pmendez- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/15 21:07:45 by pmendez-          #+#    #+#              #
-#    Updated: 2025/10/15 21:07:46 by pmendez-         ###   ########.fr        #
+#    Updated: 2025/10/17 22:50:03 by pmendez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = account
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-
-FILES = Account.cpp tests.cpp 
-		
-OBJS = $(FILES:.cpp=.o)
+OBJ_DIR = obj
+FILES = Account.cpp tests.cpp
+OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
 
 all: $(NAME)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 $(NAME): $(OBJS) 
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo " Compilation finished! 👍"
 
+$(OBJ_DIR)/%.o: %.cpp $(OBJ_DIR)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
+
 clean:
 	@rm -f $(OBJS)
+	@rmdir --ignore-fail-on-non-empty $(OBJ_DIR) 2> /dev/null || true
 	@echo "Cleaning finished! 🧹"
 
 fclean: clean
