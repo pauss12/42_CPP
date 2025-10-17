@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/17 21:38:02 by pmendez-          #+#    #+#             */
+/*   Updated: 2025/10/17 22:09:53 by pmendez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CLAPTRAP_HPP
 # define CLAPTRAP_HPP
 
@@ -19,26 +31,22 @@
 
 class ClapTrap
 {
+	protected:
+		std::string		_name;
+		unsigned int	_hitPoints; // Health points
+		unsigned int	_energyPoints;
+		unsigned int	_attackDamage;
 
-    private:
-        
-        std::string     _name;
-        unsigned int    _hitPoints; // Health points
-        unsigned int    _energyPoints;
-        unsigned int    _attackDamage;
+	public:
+		ClapTrap(void);
+		ClapTrap(std::string name);
+		ClapTrap(const ClapTrap &orig);
+		ClapTrap& operator=(const ClapTrap &orig);
+		~ClapTrap(void);
 
-    public:
-        
-        ClapTrap(void);
-        ClapTrap(std::string name);
-        ClapTrap(const ClapTrap &orig); // Constructor por copia
-        ClapTrap& operator=(const ClapTrap &orig);  // Sobrecarga del operador de asignación
-        ~ClapTrap(void);
-
-        void    attack(const std::string& target);
-        void    takeDamage(unsigned int amount);
-        void    beRepaired(unsigned int amount);
+		void	attack(const std::string& target);
+		void	takeDamage(unsigned int amount);
+		void	beRepaired(unsigned int amount);
 };
 
 #endif
-

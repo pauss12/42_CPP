@@ -1,9 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/10/17 21:38:16 by pmendez-          #+#    #+#              #
+#    Updated: 2025/10/17 22:43:59 by pmendez-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-NAME = clapTrap
+NAME = scavTrap
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = main.cpp ClapTrap.cpp
+FILES = main.cpp ClapTrap.cpp ScavTrap.cpp
 
 OBJS = $(FILES:.cpp=.o)
 

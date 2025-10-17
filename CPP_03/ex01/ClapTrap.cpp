@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/17 21:37:53 by pmendez-          #+#    #+#             */
+/*   Updated: 2025/10/17 22:08:36 by pmendez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 # include "ClapTrap.hpp"
 
@@ -19,17 +30,14 @@ ClapTrap::ClapTrap(std::string name)
 
 ClapTrap::ClapTrap(const ClapTrap &orig)
 {
-    this->_name = orig._name;
-    this->_hitPoints = orig._hitPoints;
-    this->_energyPoints = orig._energyPoints;
-    this->_attackDamage = orig._attackDamage;
+	*this = orig;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& orig)
 {
-    //Se comprueba si es la misma direccion de memoria
-    if (this != &orig)
-    {
+	//Se comprueba si es la misma direccion de memoria
+	if (this != &orig)
+	{
 		this->_name = orig._name;
 		this->_hitPoints = orig._hitPoints;
 		this->_energyPoints = orig._energyPoints;
