@@ -1,19 +1,26 @@
 NAME = reference
 CXX = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
-
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+OBJS_DIR = obj
 FILES = main.cpp
 
-OBJS = $(FILES:.cpp=.o)
+OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(FILES:.cpp=.o)))
 
 all: $(NAME)
 
+$(OBJS_DIR):
+	@mkdir -p $(OBJS_DIR)
+
 $(NAME): $(OBJS) 
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo " Compilation finished! 👍"
+
+$(OBJS_DIR)/%.o: %.cpp | $(OBJS_DIR)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJS)
+	@rmdir --ignore-fail-on-non-empty $(OBJS_DIR) 2> /dev/null || true
 	@echo "Cleaning finished! 🧹"
 
 fclean: clean
