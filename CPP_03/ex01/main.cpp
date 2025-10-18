@@ -6,7 +6,7 @@
 /*   By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:38:09 by pmendez-          #+#    #+#             */
-/*   Updated: 2025/10/17 22:31:33 by pmendez-         ###   ########.fr       */
+/*   Updated: 2025/10/18 18:28:54 by pmendez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	main(void)
 
 	troopy->guardGate();
 	troopy->attack("Target1");
-/* 	troopy->takeDamage(5);
-	troopy->beRepaired(3); */
+ 	troopy->takeDamage(5);
+	troopy->beRepaired(3);
 
-/* 	ScavTrap	troopy2(*troopy);
+ 	ScavTrap	troopy2(*troopy);
 	troopy2.guardGate();
-	troopy2.attack("Target2"); */
+	troopy2.attack("Target2");
 	delete troopy;
 	return (0);
 }
