@@ -6,7 +6,7 @@
 /*   By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:38:24 by pmendez-          #+#    #+#             */
-/*   Updated: 2025/10/17 22:36:36 by pmendez-         ###   ########.fr       */
+/*   Updated: 2025/11/29 14:41:59 by pmendez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define GRAY    "\x1B[38;2;176;174;174m"
 # define RESET "\033[0m"
 
-class ScavTrap: public ClapTrap
+class ScavTrap: virtual public ClapTrap
 {
 	public:
 		ScavTrap(void);

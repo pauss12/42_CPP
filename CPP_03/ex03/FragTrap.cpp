@@ -43,5 +43,5 @@ FragTrap::~FragTrap(void)
 // FUNCTIONS -----------------------------------
 void FragTrap::highFivesGuys(void)
 {
-	std::cout << LIGHT_BLUE << "FragTrap " << this->_name << " is requesting a high five!" << RESET << std::endl;
+	std::cout << LIGHT_BLUE << "FragTrap " << this->_name << " says HIGH FIVE GUYS!" << RESET << std::endl;
 }

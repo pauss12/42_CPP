@@ -3,16 +3,17 @@
 
 # include "ClapTrap.hpp"
 
-class FragTrap : public ClapTrap
+class FragTrap : virtual public ClapTrap
 {
-public:
-	FragTrap(void);
-	FragTrap(std::string name);
-	FragTrap(const FragTrap &orig);
-	FragTrap& operator=(const FragTrap &orig);
-	~FragTrap(void);
-
-	void highFivesGuys(void);
+	public:
+		FragTrap(void);
+		FragTrap(std::string name);
+		FragTrap(const FragTrap &orig);
+		~FragTrap(void);
+		
+		void highFivesGuys(void);
+		FragTrap& operator=(const FragTrap &orig);
+	
 };
 
 # endif
