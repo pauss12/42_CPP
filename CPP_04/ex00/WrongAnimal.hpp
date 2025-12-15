@@ -1,5 +1,5 @@
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#ifndef WRONG_ANIMAL_HPP
+#define WRONG_ANIMAL_HPP
 
 # include <iostream>
 # include <string>
@@ -17,18 +17,19 @@
 # define GRAY	"\x1B[38;2;176;174;174m"
 # define RESET	"\033[0m"
 
-class Animal {
+class WrongAnimal {
 
 	protected:
 		std::string _type;
 
 	public:
-		Animal();
-		Animal(const Animal& orig);
-		Animal& operator=(const Animal& orig);
-		virtual ~Animal();
+		WrongAnimal();
+		WrongAnimal(std::string type);
+		WrongAnimal(const WrongAnimal& orig);
+		WrongAnimal& operator=(const WrongAnimal& orig);
+		virtual ~WrongAnimal();
 
-		virtual void makeSound() const;
+		void makeSound() const;
 		std::string getType() const;
 };
 

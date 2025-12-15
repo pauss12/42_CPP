@@ -2,7 +2,7 @@ NAME = animal
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILES = Animal.cpp main.cpp Dog.cpp
+FILES = Animal.cpp main.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
 
 OBJS = $(FILES:.cpp=.o)
 

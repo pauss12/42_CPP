@@ -6,7 +6,7 @@ Dog::Dog() : Animal()
 	std::cout << CYAN << "Dog Default Constructor called" <<  std::endl;
 }
 
-Dog::Dog(const Dog& orig) : Animal(orig) 
+Dog::Dog(const Dog& orig) : Animal(orig)
 {
 	*this = orig;
 	std::cout << CYAN << "Dog Copy Constructor called" <<  std::endl;
