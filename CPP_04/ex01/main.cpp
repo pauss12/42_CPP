@@ -17,6 +17,14 @@ int main()
 			animals[i] = new Cat();
 	}
 
+	// GIVING THEM RANDOM IDEAS FROM A LIST
+	std::cout << std::endl << YELLOW << "----- GIVING RANDOM IDEAS -----" << RESET << std::endl;
+	for (int i = 0; i < 10; i++)
+	{
+		int randomIndex = rand() % 10;
+		animals[i]->setIdeas(0, ideas[randomIndex]);
+	}
+
 	std::cout << std::endl << YELLOW << "----- MAKING SOUND AND SHOWING TYPES -----" << RESET << std::endl;
 	for (int i = 0; i < 10; i++)
 	{

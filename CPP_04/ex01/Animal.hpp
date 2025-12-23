@@ -30,6 +30,8 @@ class Animal {
 
 		virtual void makeSound() const;
 		std::string getType() const;
+
+		void setIdeas(int index, const std::string& idea);
 };
 
 #endif

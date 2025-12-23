@@ -51,6 +51,7 @@ Brain* Dog::getBrain() const
 	return (this->brain);
 }
 
+
 void Dog::setIdea(int index, const std::string& idea) 
 {
 	if (index < 0 || index >= 100)
