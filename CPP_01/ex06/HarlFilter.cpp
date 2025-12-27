@@ -57,7 +57,7 @@ void HarlFilter::complain(std::string level)
             this->error();
             break ;
         case 4:
-            std::cout << CYAN "There is no other option" RESET << std::endl;
+           	std::cout << ORANGE << "I am not sure how tired I am today..." << RESET << std::endl;
             break ;
     }
 }
