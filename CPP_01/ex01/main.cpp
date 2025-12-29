@@ -10,6 +10,11 @@ int main()
 	zombie2.announce();
 
 	Zombie *zombiesArmy = zombieHorde(5, "Zombie ");
+	if (!zombiesArmy)
+	{
+		std::cout << RED << "Error: Zombie horde creation failed." << RESET << std::endl;
+		return (1);
+	}
 	std::cout << std::endl;
 
 	for (int i = 0; i < 5; i++)

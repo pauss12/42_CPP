@@ -21,7 +21,7 @@ Replace::Replace(std::string filename, std::string lookFor, std::string replaceW
 	this->filename = filename;
 	this->lookFor = lookFor;
 	this->replaceWith = replaceWith;
-	this->createdFile = filename.append(".replace");
+	this->createdFile = filename + ".replace";
 }
 
 int Replace::checkInfile()
@@ -30,14 +30,16 @@ int Replace::checkInfile()
 	if (!this->infile.is_open()) 
 	{
 		std::cout << RED "Error" RESET << std::endl;
-        std::cout << "Error de apertura: El fichero '" << this->filename << "' no se pudo abrir." << std::endl;
-        return (1);
-    }
-    if (this->infile.peek() == EOF) 
-	{
-        std::cout << "ADVERTENCIA: El fichero de entrada '" << this->filename << "' está vacío." << std::endl;
+		std::cout << "Error de apertura: El fichero '" << this->filename << "' no se pudo abrir." << std::endl;
 		return (1);
-    }
+	}
+	if (this->infile.peek() == EOF) 
+	{
+		this->infile.close();
+		std::cout << ORANGE << "ADVERTENCIA" << RESET << std::endl;
+		std::cout << "El fichero de entrada '" << this->filename << "' está vacío." << std::endl;
+		return (1);
+	}
 	return (0);
 }
 

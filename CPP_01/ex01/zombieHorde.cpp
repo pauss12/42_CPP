@@ -1,16 +1,25 @@
 #include "Zombie.hpp"
 
-Zombie *zombieHorde(int N, std::string name)
+Zombie	*zombieHorde(int N, std::string name)
 {
+	Zombie	*zombiesArmy;
+
 	if (N <= 0)
 	{
-		std::cout << RED << "Error: Number of zombies must be greater than 0." << RESET << std::endl;
-		return nullptr;
+		std::cout << RED << "Error: Number of zombies must be greater than 0" << RESET << std::endl;
+		return (NULL);
 	}
-	Zombie *zombiesArmy = new Zombie[N];
-
+	zombiesArmy = new Zombie[N];
+	if (!zombiesArmy)
+	{
+		std::cout << RED << "Error: Memory allocation failed." << RESET << std::endl;
+		return (NULL);
+	}
 	for (int i = 0; i < N; i++)
-		zombiesArmy[i].setName(name + std::to_string(i + 1));
-	
+	{
+		std::ostringstream oss;
+		oss << (i + 1);
+		zombiesArmy[i].setName(name + oss.str());
+	}
 	return (zombiesArmy);
 }

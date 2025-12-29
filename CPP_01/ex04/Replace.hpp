@@ -4,6 +4,7 @@
 # include <iostream>
 # include <fstream>
 # include <string>
+# include <cstdlib>
 
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m\033[1m"

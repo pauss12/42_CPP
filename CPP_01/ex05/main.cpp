@@ -1,13 +1,15 @@
 #include "Harl.hpp"
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    Harl harl;
+	Harl	harl;
 
-    // harl.complain("DF");
-    harl.complain("DEBUG");
-    harl.complain("INFO");
-    harl.complain("WARNING");
-    harl.complain("ERROR");
-    return (0);
+	harl = Harl();
+	if (argc < 2)
+	{
+		std::cerr << "Usage: " << argv[0] << " <level>" << std::endl;
+		return (1);
+	}
+	harl.complain(argv[1]);
+	return (0);
 }
