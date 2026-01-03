@@ -20,39 +20,36 @@
 
 class Fixed 
 {
-    private:
-        int _value;
-        static const int _bits = 8;
+	private:
+		int _value;
+		static const int _bits = 8;
 
-    public:
-        // CONSTRUCTORES Y DESTRUCTORES 
-        Fixed();
-        Fixed(const int value);
-        Fixed(const float valorFloat);
-        ~Fixed();
-        Fixed(const Fixed &orig);
+	public:
+		// CONSTRUCTORES Y DESTRUCTORES 
+		Fixed();
+		Fixed(const int value);
+		Fixed(const float valorFloat);
+		~Fixed();
+		Fixed(const Fixed &orig);
 
 		// GETTERS Y SETTERS
-        int getRawBits(void) const;
-        void setRawBits(int const raw);
+		int getRawBits(void) const;
+		void setRawBits(int const raw);
 
-        // FUNCIONES PARA SACAR MAXIMO / MINIMO
-        static Fixed&	min(Fixed& numA, Fixed& numB);
+		// FUNCIONES PARA SACAR MAXIMO / MINIMO
+		static Fixed&	min(Fixed& numA, Fixed& numB);
 		static const Fixed&	min(const Fixed& numA, const Fixed& numB);
 		static Fixed&	max(Fixed& numA, Fixed& numB);
 		static const	Fixed&	max(const Fixed& numA, const Fixed& numB);
 
-        // OTRAS FUNCIONES 
-        int toInt(void) const;
-        float toFloat(void) const;
+		// OTRAS FUNCIONES 
+		int toInt(void) const;
+		float toFloat(void) const;
 
-        // SOBRECARGA DE OPERADORES ---
-        Fixed& operator=(const Fixed& orig);
-        // La sobrecarga del operador "<<" es una funcion global; con el atributo "friend" le estas diciendo 
-        // que esta funcion pueda acceder a los valores privados de la clase
-        friend std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
+		// SOBRECARGA DE OPERADORES ---
+		Fixed& operator=(const Fixed& orig);
 
-        bool operator<(const Fixed& fixed);
+		bool operator<(const Fixed& fixed);
 		bool operator<=(const Fixed& fixed);
 		bool operator>(const Fixed& fixed);
 		bool operator>=(const Fixed& fixed);
@@ -69,6 +66,8 @@ class Fixed
 		Fixed& operator--();
 		Fixed operator--(int);
 };
+
+		std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
 
 #endif
 
