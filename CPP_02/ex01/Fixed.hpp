@@ -20,26 +20,24 @@
 
 class Fixed 
 {
-    private:
-        int _value;
-        static const int _bits = 8;
+	private:
+		int _value;
+		static const int _bits = 8;
 
-    public:
-        Fixed();
-        Fixed(const int value);
-        Fixed(const float valorFloat);
-        ~Fixed();
-        Fixed(const Fixed &orig);
-        Fixed& operator=(const Fixed& orig);
-        int getRawBits(void) const;
-        void setRawBits(int const raw);
-        int toInt(void) const;
-        float toFloat(void) const;
-
-        // La sobrecarga del operador "<<" es una funcion global; con el atributo "friend" le estas diciendo 
-        // que esta funcion pueda acceder a los valores privados de la clase
-        friend std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
-};
+	public:
+		Fixed();
+		Fixed(const int value);
+		Fixed(const float valorFloat);
+		~Fixed();
+		Fixed(const Fixed &orig);
+		Fixed& operator=(const Fixed& orig);
+		int getRawBits(void) const;
+		void setRawBits(int const raw);
+		int toInt(void) const;
+		float toFloat(void) const;
+	};
+	
+	std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
 
 #endif
 
