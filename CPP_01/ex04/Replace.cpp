@@ -1,4 +1,15 @@
-# include "Replace.hpp"	
+# include "Replace.hpp"
+
+static int check_if_full_empty(std::ifstream &file)
+{
+	std::string line;
+	while (std::getline(file, line))
+	{
+		if (!line.empty())
+			return (0);
+	}
+	return (1);
+}
 
 Replace::Replace()
 {
@@ -40,24 +51,49 @@ int Replace::checkInfile()
 		std::cout << "El fichero de entrada '" << this->filename << "' está vacío." << std::endl;
 		return (1);
 	}
+	if (check_if_full_empty(this->infile))
+	{
+		this->infile.close();
+		std::cout << ORANGE << "ERROR" << RESET << std::endl;
+		std::cout << "El fichero de entrada '" << this->filename << "' solo contiene saltos de linea." << std::endl;
+		return (1);
+	}
 	return (0);
+}
+
+static bool containsMatch(std::ifstream &infile, const std::string &lookFor)
+{
+	std::string line;
+
+	while (std::getline(infile, line))
+	{
+		if (line.find(lookFor) != std::string::npos)
+			return true;
+	}
+	return false;
 }
 
 void Replace::CreateNewFile()
 {
 	if (checkInfile() == 1)
-		exit (1);
+		return ;
+	if (!containsMatch(this->infile, this->lookFor))
+	{
+		this->infile.close();
+		std::cout << RED << "ERROR" << RESET << std::endl;
+		std::cout << "No se encontraron coincidencias en el fichero: " << this->filename << std::endl;
+		return ;
+	}
 	this->outfile.open(this->createdFile.c_str());
 	if (!this->outfile.is_open())
 	{
 		this->infile.close();
 		std::cout << RED "Error" RESET << std::endl << "Fallo al abrir el fichero: " << this->filename << std::endl;
-		exit(1);
+		return ;
 	}
 	this->writeFile();
 	this->infile.close();
-	this->outfile.close();
-	
+	this->outfile.close();	
 }
 
 std::string Replace::replaceLine(std::string line)

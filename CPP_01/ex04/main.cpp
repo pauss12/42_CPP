@@ -40,6 +40,5 @@ int main(int argc, char **argv)
 		return (1);
 	Replace replaced(filename, lookFor, replaceWith);
 	replaced.CreateNewFile();
-
 	return (0);
 }
