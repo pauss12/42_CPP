@@ -10,7 +10,7 @@ Zombie	*zombieHorde(int N, std::string name)
 		return (NULL);
 	}
 	zombiesArmy = new Zombie[N];
-	if (!zombiesArmy)
+	if (zombiesArmy == NULL)
 	{
 		std::cout << RED << "Error: Memory allocation failed." << RESET << std::endl;
 		return (NULL);
