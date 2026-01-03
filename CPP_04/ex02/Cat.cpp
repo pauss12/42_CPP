@@ -67,7 +67,7 @@ void Cat::setIdea(int index, const std::string& idea)
 		return;
 	}
 	this->brain->setIdea(index, idea);
-	std::cout << PURPLE << "Cat: Idea set at index " << index << ": " << idea << RESET << std::endl;
+	std::cout << CYAN << "Cat ----- " << RESET << PURPLE << "Idea set at index " << index << ": " << idea << RESET << std::endl;
 }
 
 void Cat::selectRandomIdea(int index)

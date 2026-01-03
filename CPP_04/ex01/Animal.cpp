@@ -2,13 +2,13 @@
 
 Animal::Animal() : _type("Unknown") 
 {
-	// std::cout << CYAN << "Animal Default Constructor called" <<  std::endl;
+	std::cout << CYAN << "Animal Default Constructor called" <<  std::endl;
 }
 
 Animal::Animal(const Animal& orig) 
 {
 	*this = orig;
-	// std::cout << BLUE << "Animal Copy Constructor called" <<  std::endl;
+	std::cout << BLUE << "Animal Copy Constructor called" <<  std::endl;
 }
 
 Animal& Animal::operator=(const Animal& orig) 
@@ -20,7 +20,7 @@ Animal& Animal::operator=(const Animal& orig)
 
 Animal::~Animal() 
 {
-	// std::cout << PURPLE << "Animal Destructor called" <<  std::endl;
+	std::cout << PURPLE << "Animal Destructor called" <<  std::endl;
 }
 
 void Animal::makeSound() const 

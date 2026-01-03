@@ -78,14 +78,21 @@ int main()
 
 	// CHECK IF ANIMAL HAS IDEAS ------------------------------------------------------------------------------------------------------------------
 	std::cout << std::endl << YELLOW << "----- ANIMAL IDEAS TEST -----" << RESET << std::endl;
-	Animal animal;
-	animal.setIdeas(0, "Animal Idea");
-	std::cout << GRAY << "Animal: " << animal.getIdeas(0) << RESET << std::endl;
+	std::cout << GRAY << "It has comments because cannot be instantiated " << RESET << std::endl;
+	// Animal animal;
+	// if (&animal == NULL)
+	// 	std::cout << RED << "Animal not instantiable " << RESET << std::endl;
+	// animal.setIdeas(0, "Animal Idea");
+	// std::cout << GRAY << "Animal: " << animal.getIdeas(0) << RESET << std::endl;
 
 	// FREEING MEMORY ------------------------------------------------------------------------------------------------------------------
 	std::cout << std::endl << YELLOW << "----- FREEING MEMORY -----" << RESET << std::endl;
 	for (int i = 0; i < 10; i++)
+	{
+		std::cout << GRAY << "Freeing memory for " << animals[i]->getType() << " " << i << RESET << "------------------------------" << std::endl;
 		delete animals[i];
-
+		std::cout << std::endl;
+	}
+	std::cout << std::endl << GREEN << "----- removal of deep copies -----" << RESET << std::endl;
 	return (0);
 }

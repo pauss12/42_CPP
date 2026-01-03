@@ -28,11 +28,11 @@ class Animal {
 		Animal& operator=(const Animal& orig);
 		virtual ~Animal();
 
-		virtual void makeSound() const;
-		std::string getType() const;
+		virtual void makeSound() const = 0;
+		virtual std::string getType() const;
 
-		std::string getIdeas(int index) const;
-		void setIdeas(int index, const std::string& idea);
+		virtual std::string getIdeas(int index) const;
+		virtual void setIdeas(int index, const std::string& idea);
 };
 
 #endif

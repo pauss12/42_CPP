@@ -65,7 +65,7 @@ void Dog::setIdea(int index, const std::string& idea)
 		return;
 	}
 	this->brain->setIdea(index, idea);
-	std::cout << PURPLE << "Dog: Idea set at index " << index << ": " << idea << RESET << std::endl;
+	std::cout << LIGHT_BLUE << "Dog ----- " << RESET << PURPLE << "Idea set at index " << index << ": " << idea << RESET << std::endl;
 }
 
 std::string Dog::getIdea(int index) const 
