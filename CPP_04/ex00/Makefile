@@ -1,19 +1,28 @@
 NAME = animal
 CXX = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP 
 
 FILES = Animal.cpp main.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
-
-OBJS = $(FILES:.cpp=.o)
+OBJ_DIR = obj
+OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
+DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.d)))
 
 all: $(NAME)
 
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
 $(NAME): $(OBJS) 
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo " Compilation finished! 👍"
 
+$(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
+-include $(DEPS)
+
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(DEPS)
+	@rmdir --ignore-fail-on-non-empty $(OBJ_DIR) 2> /dev/null || true
 	@echo "Cleaning finished! 🧹"
 
 fclean: clean
