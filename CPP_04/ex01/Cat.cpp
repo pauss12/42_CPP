@@ -67,7 +67,29 @@ void Cat::setIdea(int index, const std::string& idea)
 		return;
 	}
 	this->brain->setIdea(index, idea);
-	std::cout << RED << "Cat: Idea set at index " << index << ": " << idea << RESET << std::endl;
+	std::cout << PURPLE << "Cat: Idea set at index " << index << ": " << idea << RESET << std::endl;
+}
+
+void Cat::selectRandomIdea(int index)
+{
+	int randomIndex;
+
+	std::string ideas[10] = {
+		"Chase the mouse",
+		"Climb the tree",
+		"Scratch the furniture",
+		"Sleep in the sun",
+		"Meow at the door",
+		"Play with a ball of yarn",
+		"Watch birds from the window",
+		"Hide in a box",
+		"Lick my paws",
+		"Demand food"
+	};
+	
+	// Coge una random
+	randomIndex = rand() % 10;
+	this->setIdea(index, ideas[randomIndex]);
 }
 
 std::string Cat::getIdea(int index) const 
@@ -77,8 +99,8 @@ std::string Cat::getIdea(int index) const
 		std::cout << RED << "You entered a wrong index to get idea" << RESET << std::endl;
 		return "";
 	}
-	if (brain) {
+	if (brain && brain->getIdea(index) != "")
 		return (brain->getIdea(index));
-	}
+	std::cout << RED << "No idea found at index " << index << RESET << std::endl;
 	return "";
 }

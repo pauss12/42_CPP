@@ -65,7 +65,7 @@ void Dog::setIdea(int index, const std::string& idea)
 		return;
 	}
 	this->brain->setIdea(index, idea);
-	std::cout << RED << "Dog: Idea set at index " << index << ": " << idea << RESET << std::endl;
+	std::cout << PURPLE << "Dog: Idea set at index " << index << ": " << idea << RESET << std::endl;
 }
 
 std::string Dog::getIdea(int index) const 
@@ -75,8 +75,28 @@ std::string Dog::getIdea(int index) const
 		std::cout << RED << "You entered a wrong index to get idea" << RESET << std::endl;
 		return "";
 	}
-	if (brain) {
+	if (brain && brain->getIdea(index) != "")
 		return (brain->getIdea(index));
-	}
+	std::cout << RED << "No idea found at index " << index << RESET << std::endl;
 	return "";
+}
+
+void Dog::selectRandomIdea(int index)
+{
+	int randomIndex;
+
+	std::string ideas[10] = {
+		"Chase the ball",
+		"Bark at the mailman",
+		"Dig a hole",
+		"Roll in the grass",
+		"Play fetch",
+		"Guard the house",
+		"Sniff everything",
+		"Chase my tail",
+		"Take a nap",
+		"Beg for food"
+	};
+	randomIndex = rand() % 10;
+	this->setIdea(index, ideas[randomIndex]);
 }

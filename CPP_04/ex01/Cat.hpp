@@ -19,6 +19,7 @@ class Cat : public Animal
 		Brain* getBrain() const;
 		void setIdea(int index, const std::string& idea);
 		std::string getIdea(int index) const;
+		void selectRandomIdea(int index);
 };
 
 #endif
