@@ -1,10 +1,11 @@
 NAME = reference
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 OBJS_DIR = obj
 FILES = main.cpp
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(FILES:.cpp=.o)))
+DEPS = $(addprefix $(OBJS_DIR)/, $(notdir $(FILES:.cpp=.d)))
 
 all: $(NAME)
 
@@ -17,9 +18,10 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: %.cpp | $(OBJS_DIR)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
+-include $(DEPS)
 
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(DEPS)
 	@rmdir --ignore-fail-on-non-empty $(OBJS_DIR) 2> /dev/null || true
 	@echo "Cleaning finished! 🧹"
 

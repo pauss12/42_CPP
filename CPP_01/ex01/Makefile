@@ -1,10 +1,11 @@
 
 NAME = zombieHorde
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 FILES = main.cpp Zombie.cpp zombieHorde.cpp
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
+DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.d)))
 
 all: $(NAME)
 
@@ -17,9 +18,10 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
+-include $(DEPS)
 
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(DEPS)
 	@rmdir --ignore-fail-on-non-empty $(OBJ_DIR) 2> /dev/null || true
 	@echo "Cleaning finished! 🧹"
 

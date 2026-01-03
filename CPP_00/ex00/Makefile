@@ -6,18 +6,19 @@
 #    By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/15 20:42:43 by pmendez-          #+#    #+#              #
-#    Updated: 2025/10/17 22:50:11 by pmendez-         ###   ########.fr        #
+#    Updated: 2026/01/03 14:21:41 by pmendez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = megaphone
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 OBJ_DIR = obj
 
 FILES = Megaphone.cpp
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
+DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.d)))
 
 all: $(NAME)
 
@@ -30,9 +31,10 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)/%.o: %.cpp $(OBJ_DIR)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
+-include $(DEPS)
 
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(DEPS)
 	@rmdir --ignore-fail-on-non-empty $(OBJ_DIR) 2> /dev/null || true
 	@echo "Cleaning finished! 🧹"
 
