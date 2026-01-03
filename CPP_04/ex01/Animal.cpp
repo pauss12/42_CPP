@@ -33,3 +33,17 @@ std::string Animal::getType() const
 	return this->_type;
 }
 
+std::string Animal::getIdeas(int index) const 
+{
+	(void)index;
+	std::cout << RED << "No idea found at index " << index << RESET << std::endl;
+	return "";
+}
+
+void Animal::setIdeas(int index, const std::string& idea) 
+{
+	(void)index;
+	(void)idea;
+	std::cout << RED << "This Animal has no Brain to store ideas!" << RESET << std::endl;
+	return ;
+}
