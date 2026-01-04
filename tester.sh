@@ -56,8 +56,10 @@ ex01()
 
 	echo
 
-	total_tests=0
+	total_tests=1
 	passed_tests=0
+
+	test_case 1 ./zombieHorde 
 
 	echo -e "${YELLOW} ====================== ex01  =======================${RESET}"
 	printf " Tests PASSED: ${GREEN}%d${RESET}/%d ${YELLOW}(%.0f%%)${RESET}\n" $passed_tests $total_tests $((passed_tests * 100 / total_tests))
@@ -200,53 +202,97 @@ ex06()
 }
 
 
-echo -e "${PURPLE} ===========================================${RESET}"
-echo -e "${YELLOW}           CPP 01 - TESTER${RESET}"
-echo -e "${PURPLE} ===========================================${RESET}\n"
+echo -e "${LIGHT_BLUE} ===========================================${RESET}"
+echo -e "${YELLOW}           CPP - TESTERS ${RESET}"
+echo -e "${LIGHT_BLUE} ===========================================${RESET}\n"
 
 echo -e "${YELLOW} ⚠️  WARNING: This tester relies on specific error messages being returned by the script.${RESET}\n\n"
 
 echo -e "${GREEN} ¿What exercise do you want to evaluate? ${RESET}"
-echo -e "0) ${ROSE} ex00 - Zombie ${RESET}"
-echo -e "1) ${ROSE} ex01 - Zombie Horde ${RESET}"
-echo -e "2) ${ROSE} ex02 - Reference ${RESET}"
-echo -e "3) ${ROSE} ex03 - Weapon & Human ${RESET}"
-echo -e "4) ${ROSE} ex04 - Replace${RESET}"
-echo -e "5) ${ROSE} ex05 - Harl${RESET}"
-echo -e "6) ${ROSE} ex06 - Harl Filter${RESET}"
-echo -ne "${YELLOW} Elige (0-6): ${RESET}"
+echo -e "0) ${ROSE} CPP 00 ${RESET}"
+echo -e "1) ${ROSE} CPP 01 ${RESET}"
+echo -e "2) ${ROSE} CPP 02 ${RESET}"
+echo -e "3) ${ROSE} CPP 03 ${RESET}"
+echo -e "4) ${ROSE} CPP 04 ${RESET}"
+echo -ne "${YELLOW} Elige (0-4): ${RESET}"
 
-read choice
+read cpp
 
-case $choice in
+case $cpp in
 
 	0)
-		echo -e "\n${GREEN}🚀 Evaluating EX00...${RESET}"
-		ex00
+		echo -e "${PURPLE} ===========================================${RESET}"
+		echo -e "${YELLOW}           CPP 00 - TESTER ${RESET}"
+		echo -e "${PURPLE} ===========================================${RESET}\n"
 		;;
 	1)
-		echo -e "\n${GREEN}🚀 Evaluating EX01...${RESET}"
-		ex01
+		echo -e "${PURPLE} ===========================================${RESET}"
+		echo -e "${YELLOW}           CPP 01 - TESTER ${RESET}"
+		echo -e "${PURPLE} ===========================================${RESET}\n"
+
+		echo -e "${GREEN} ¿What exercise do you want to evaluate? ${RESET}"
+		echo -e "0) ${ROSE} ex00 - Zombie ${RESET}"
+		echo -e "1) ${ROSE} ex01 - Zombie Horde ${RESET}"
+		echo -e "2) ${ROSE} ex02 - Reference ${RESET}"
+		echo -e "3) ${ROSE} ex03 - Weapon & Human ${RESET}"
+		echo -e "4) ${ROSE} ex04 - Replace${RESET}"
+		echo -e "5) ${ROSE} ex05 - Harl${RESET}"
+		echo -e "6) ${ROSE} ex06 - Harl Filter${RESET}"
+		echo -ne "${YELLOW} Elige (0-6): ${RESET}"
+
+		read ex
+
+		case $ex in
+
+			0)
+				echo -e "\n${GREEN}🚀 Evaluating EX00...${RESET}"
+				ex00
+				;;
+			1)
+				echo -e "\n${GREEN}🚀 Evaluating EX01...${RESET}"
+				ex01
+				;;
+			2)
+				echo -e "\n${GREEN}🚀 Evaluating EX02...${RESET}"
+				ex02
+				;;
+			3)
+				echo -e "\n${GREEN}🚀 Evaluating EX03...${RESET}"
+				ex03
+				;;
+			4)
+				echo -e "\n${GREEN}🚀 Evaluating EX04...${RESET}"
+				ex04
+				;;
+			5)
+				echo -e "\n${GREEN}🚀 Evaluating EX05...${RESET}"
+				ex05
+				;;
+			6)
+				echo -e "\n${GREEN}🚀 Evaluating EX06...${RESET}"
+				ex06
+				;;
+			*)
+				echo -e "${RED} ❌ Opción inválida ${RESET}"
+				exit 1
+				;;
+		esac
+		
 		;;
 	2)
-		echo -e "\n${GREEN}🚀 Evaluating EX02...${RESET}"
-		ex02
+		echo -e "${PURPLE} ===========================================${RESET}"
+		echo -e "${YELLOW}           CPP 02 - TESTER ${RESET}"
+		echo -e "${PURPLE} ===========================================${RESET}\n"
 		;;
 	3)
-		echo -e "\n${GREEN}🚀 Evaluating EX03...${RESET}"
-		ex03
+		echo -e "${PURPLE} ===========================================${RESET}"
+		echo -e "${YELLOW}           CPP 03 - TESTER ${RESET}"
+		echo -e "${PURPLE} ===========================================${RESET}\n"
 		;;
 	4)
-		echo -e "\n${GREEN}🚀 Evaluating EX04...${RESET}"
-		ex04
-		;;
-	5)
-		echo -e "\n${GREEN}🚀 Evaluating EX05...${RESET}"
-		ex05
-		;;
-	6)
-		echo -e "\n${GREEN}🚀 Evaluating EX06...${RESET}"
-		ex06
+		echo -e "${PURPLE} ===========================================${RESET}"
+		echo -e "${YELLOW}           CPP 04 - TESTER ${RESET}"
+		echo -e "${PURPLE} ===========================================${RESET}\n"
 		;;
 	*)
 		echo -e "${RED} ❌ Opción inválida ${RESET}"
