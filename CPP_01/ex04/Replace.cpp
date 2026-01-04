@@ -40,22 +40,22 @@ int Replace::checkInfile()
 	this->infile.open(this->filename.c_str());
 	if (!this->infile.is_open()) 
 	{
-		std::cout << RED "Error" RESET << std::endl;
-		std::cout << "Error de apertura: El fichero '" << this->filename << "' no se pudo abrir." << std::endl;
+		std::cout << RED "ERROR" RESET << std::endl;
+		std::cout << "Error opening file: '" << this->filename << "' could not be opened." << std::endl;
 		return (1);
 	}
 	if (this->infile.peek() == EOF) 
 	{
 		this->infile.close();
-		std::cout << ORANGE << "ADVERTENCIA" << RESET << std::endl;
-		std::cout << "El fichero de entrada '" << this->filename << "' está vacío." << std::endl;
+		std::cout << ORANGE << "WARNING" << RESET << std::endl;
+		std::cout << "The file '" << this->filename << "' is empty." << std::endl;
 		return (1);
 	}
 	if (check_if_full_empty(this->infile))
 	{
 		this->infile.close();
-		std::cout << ORANGE << "ERROR" << RESET << std::endl;
-		std::cout << "El fichero de entrada '" << this->filename << "' solo contiene saltos de linea." << std::endl;
+		std::cout << RED << "ERROR" << RESET << std::endl;
+		std::cout << "The file '" << this->filename << "' only contains line breaks." << std::endl;
 		return (1);
 	}
 	return (0);
@@ -81,14 +81,14 @@ void Replace::CreateNewFile()
 	{
 		this->infile.close();
 		std::cout << RED << "ERROR" << RESET << std::endl;
-		std::cout << "No se encontraron coincidencias en el fichero: " << this->filename << std::endl;
+		std::cout << "The `lookFor` '" << this->lookFor << "' was not found in the file: '" << this->filename << "'" << std::endl;
 		return ;
 	}
 	this->outfile.open(this->createdFile.c_str());
 	if (!this->outfile.is_open())
 	{
 		this->infile.close();
-		std::cout << RED "Error" RESET << std::endl << "Fallo al abrir el fichero: " << this->filename << std::endl;
+		std::cout << RED "ERROR" RESET << std::endl << "There was a problem opening '" << this->createdFile << "'" << std::endl;
 		return ;
 	}
 	this->writeFile();

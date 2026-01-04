@@ -1,5 +1,5 @@
 
-NAME = file
+NAME = replace
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 OBJ_DIR = obj
