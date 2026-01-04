@@ -35,5 +35,14 @@ int main()
 		std::cout << std::endl;
 		std::cout << "Referencia Nueva  2 ==> " << &weapon2TypeNuevo << std::endl;
 	}
+	{
+		std::cout << std::endl << YELLOW << "----- CHECKING WHAT HAPPENS WITH `\"\"` AS WEAPON ----- " << std::endl;
+		Weapon club = Weapon("");
+		HumanA paula("Paula", club);
+		paula.attack();
+
+		club.setType("Arma");
+		paula.attack();
+	}
 	return (0);
 }
