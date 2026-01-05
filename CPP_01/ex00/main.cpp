@@ -9,8 +9,6 @@ int main(int argc, char **argv)
 		Zombie *memo = newZombie("Paula");
 		memo->announce();
 		delete (memo);
-		std::cout << std::endl;
-
 		randomChump("Nombre Random");
 	}
 	else

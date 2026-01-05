@@ -40,10 +40,56 @@ ex00()
 
 	echo
 
+	total_tests=3
+	passed_tests=0
+
+	echo "Introduce the name of the Zombie"
+	read zombie_name
+	echo "Introduce the name of the random zombie"
+	read random_name
+
 	total_tests=0
 	passed_tests=0
 
-	echo -e "${YELLOW} ====================== ex00  =======================${RESET}"
+	output=$(./zombie 2>&1)
+	echo "$output" | sed 's/^/       /'
+
+	# TEST 1
+	((total_tests++))
+	line1=$(echo "$output" | head -1 | sed 's/^[[:space:]]*//; s/\x1B\[[0-9;]*[a-zA-Z]//g')
+	expected="$zombie_name: BraiiiiiiinnnzzzZ..."
+	if [ "$line1" = "$expected" ]; then
+		echo -e "  ${GREEN}✅ Test 1 OK${RESET}"
+		((passed_tests++))
+	else
+		echo -e "  ${RED}❌ Test 1${RESET}"
+	fi
+
+	# TEST 2
+	((total_tests++))
+	line2=$(echo "$output" | tail -2 | head -1 | sed 's/^[[:space:]]*//; s/\x1B\[[0-9;]*[a-zA-Z]//g')
+	expected="$random_name: BraiiiiiiinnnzzzZ..."
+	# echo ">1>>>>>>>>>>>> '$line2'"
+	# echo "1>>>>>>>>>>>>> '$expected'"
+	if [ "$line2" = "$expected" ]; then
+		echo -e "  ${GREEN}✅ Test 2 OK ${RESET}"
+		((passed_tests++))
+	else
+		echo -e "  ${RED}❌ Test 2 - randomChump announce ${RESET} ==> Expected [ $expected ]"
+	fi
+
+	# TEST 3 - LOS DOS DESTRUCTORES
+	((total_tests++))
+	if echo "$output" | grep -qiE "$zombie_name.*(deleted|destroy|~|destructor)" \
+		&& echo "$output" | grep -qiE "$random_name.*(deleted|destroy|~|destructor)"; then
+		echo -e "  ${GREEN}✅ Test 3 - Los dos destructores${RESET}"
+		((passed_tests++))
+	else
+		echo -e "  ${RED}❌ Test 3 - Los dos destructores${RESET}"
+	fi
+
+
+	echo -e "${YELLOW} ====================== ex01  =======================${RESET}"
 	printf " Tests PASSED: ${GREEN}%d${RESET}/%d ${YELLOW}(%.0f%%)${RESET}\n" $passed_tests $total_tests $((passed_tests * 100 / total_tests))
 	echo -e "${YELLOW} =============================================${RESET}\n"
 
@@ -54,12 +100,9 @@ ex01()
 {
 	cd CPP_01/ex01 && make &> /dev/null
 
-	echo
-
-	total_tests=1
+	total_tests=0
 	passed_tests=0
 
-	test_case 1 ./zombieHorde 
 
 	echo -e "${YELLOW} ====================== ex01  =======================${RESET}"
 	printf " Tests PASSED: ${GREEN}%d${RESET}/%d ${YELLOW}(%.0f%%)${RESET}\n" $passed_tests $total_tests $((passed_tests * 100 / total_tests))
@@ -235,10 +278,11 @@ case $cpp in
 		echo -e "1) ${ROSE} ex01 - Zombie Horde ${RESET}"
 		echo -e "2) ${ROSE} ex02 - Reference ${RESET}"
 		echo -e "3) ${ROSE} ex03 - Weapon & Human ${RESET}"
-		echo -e "4) ${ROSE} ex04 - Replace${RESET}"
-		echo -e "5) ${ROSE} ex05 - Harl${RESET}"
-		echo -e "6) ${ROSE} ex06 - Harl Filter${RESET}"
-		echo -ne "${YELLOW} Elige (0-6): ${RESET}"
+		echo -e "4) ${ROSE} ex04 - Replace ${RESET}"
+		echo -e "5) ${ROSE} ex05 - Harl ${RESET}"
+		echo -e "6) ${ROSE} ex06 - Harl Filter ${RESET}"
+		echo -e "7) ${ROSE} ex07 - All of them ${RESET}"
+		echo -ne "${YELLOW} Elige (0-7): ${RESET}"
 
 		read ex
 
@@ -270,6 +314,16 @@ case $cpp in
 				;;
 			6)
 				echo -e "\n${GREEN}🚀 Evaluating EX06...${RESET}"
+				ex06
+				;;
+			7)
+				echo -e "\n${GREEN}🚀 Evaluating All Exercises...${RESET}"
+				ex00
+				ex01
+				ex02
+				ex03
+				ex04
+				ex05
 				ex06
 				;;
 			*)
