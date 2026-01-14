@@ -1,5 +1,6 @@
 #include "AMateria.hpp"
 #include "Ice.hpp"
+#include "Cure.hpp"
 
 int main()
 {
@@ -9,8 +10,10 @@ int main()
 
 	std::cout << std::endl << YELLOW << "----- Ice instance -----" << RESET << std::endl;
 	AMateria* ice = new Ice();
+	AMateria *cure = new Cure();
 	// ice->use(*ice);
 	delete ice;
+	delete cure;
 
 	return (0);
 }

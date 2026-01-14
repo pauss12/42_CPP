@@ -13,11 +13,13 @@ class Ice : public AMateria
 
 	public:
 		Ice();
+		Ice(std::string const &type);
 		Ice(Ice const & src);
-		virtual ~Ice();
-		Ice & operator=(Ice const & rhs);
-		virtual Ice* clone() const;
-		virtual void use(ICharacter& target);
+		~Ice();
+		Ice &operator=(Ice const & orig);
+	
+		AMateria* clone() const;
+		void use(ICharacter& target);
 };
 
 #endif
