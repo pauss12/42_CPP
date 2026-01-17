@@ -6,13 +6,13 @@
 #    By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/17 21:38:16 by pmendez-          #+#    #+#              #
-#    Updated: 2025/10/17 22:43:59 by pmendez-         ###   ########.fr        #
+#    Updated: 2026/01/17 18:49:32 by pmendez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = scavTrap
 CXX = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address,leak
 
 FILES = main.cpp ClapTrap.cpp ScavTrap.cpp
 

@@ -1,28 +1,25 @@
 # include "DiamondTrap.hpp"
 
-//? No entiendo porque en FragTrap, scavTrap tiene que ser virtual
-
 DiamondTrap::DiamondTrap() : 
-    ClapTrap("Default '_clap_name'"),
-    ScavTrap(),
-    FragTrap()
+	ClapTrap("Default '_clap_name'"),
+	ScavTrap(),
+	FragTrap()
 {
-	this->_hitPoints = FragTrap::getHitPoints();
-	this->_energyPoints = ScavTrap::getEnergyPoints();
-	this->_attackDamage = FragTrap::getAttackDamage();
+	setHitPoints(FragTrap::getHitPoints());
+	setEnergyPoints(ScavTrap::getEnergyPoints());
+	setAttackDamage(FragTrap::getAttackDamage());
 	std::cout << BLUE << "DiamondTrap " << this->getName() << " has been created with default constructor" << RESET <<  std::endl;
 }
 
 DiamondTrap::DiamondTrap(std::string name) : 
-    ClapTrap(name + "_clap_name"),
-    ScavTrap(),
-    FragTrap()
+	ClapTrap(name + "_clap_name"),
+	ScavTrap(),
+	FragTrap()
 {
-    this->_name = name;
-	this->_hitPoints = FragTrap::getHitPoints();
-	this->_energyPoints = ScavTrap::getEnergyPoints();
-	this->_attackDamage = FragTrap::getAttackDamage();
-    std::cout << BLUE << "DiamondTrap " << this->getName() << " has been created" << RESET <<  std::endl;
+	setHitPoints(FragTrap::getHitPoints());
+	setEnergyPoints(ScavTrap::getEnergyPoints());
+	setAttackDamage(FragTrap::getAttackDamage());
+	std::cout << BLUE << "DiamondTrap " << this->getName() << " has been created" << RESET <<  std::endl;
 }
 
 DiamondTrap::~DiamondTrap(void)
@@ -34,12 +31,12 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap &orig)
 {
 	if (this != &orig)
 	{
-		this->_name = orig._name;
-		this->_hitPoints = orig._hitPoints;
-		this->_energyPoints = orig._energyPoints;
-		this->_attackDamage = orig._attackDamage;
+		setName(orig._name);
+		setHitPoints(orig._hitPoints);
+		setEnergyPoints(orig._energyPoints);
+		setAttackDamage(orig._attackDamage);
 	}
-	return *this;
+	return (*this);
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap &orig) : 
@@ -47,13 +44,19 @@ DiamondTrap::DiamondTrap(const DiamondTrap &orig) :
 	ScavTrap(orig),
 	FragTrap(orig)
 {
-	*this = orig;
+	setName(orig._name);
+	setHitPoints(orig._hitPoints);
+	setEnergyPoints(orig._energyPoints);
+	setAttackDamage(orig._attackDamage);
+	std::cout << BLUE << "DiamondTrap " << this->getName() << " has been created with copy constructor" << RESET << std::endl;
 }
 
 void	DiamondTrap::whoAmI(void)
 {
-	std::cout << "DiamondTrap name: " << this->_name << ", ClapTrap name: " << ClapTrap::_name << std::endl;
+	std::cout << "DiamondTrap name: " << this->getName() << ", ClapTrap name: " << ClapTrap::getName() << std::endl;
 }
 
-
-
+void	DiamondTrap::attack(const std::string& target)
+{
+	ScavTrap::attack(target);
+}

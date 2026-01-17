@@ -6,7 +6,7 @@
 /*   By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:37:53 by pmendez-          #+#    #+#             */
-/*   Updated: 2025/12/13 18:34:39 by pmendez-         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:52:16 by pmendez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ void ClapTrap::setAttackDamage(int attackDamage)
 
 void ClapTrap::attack(const std::string& target)
 {
-	if (this->_energyPoints > 0 && this->_hitPoints > 0)
+	if (this->getEnergyPoints() > 0 && this->getHitPoints() > 0)
 	{
-		this->_energyPoints--;
+		setEnergyPoints(this->_energyPoints - 1);
 		std::cout << GREEN << "ClapTrap " << this->getName() << " attacks " << target << ", causing " << this->getAttackDamage() << " points of damage!" << RESET << std::endl;
 	}
 	else
@@ -114,12 +114,12 @@ void ClapTrap::takeDamage(unsigned int amount)
 {
 	if (this->_hitPoints <= amount)
 	{
-		this->_hitPoints = 0;
+		this->setEnergyPoints(0);
 		std::cout << RED << "ClapTrap " << this->getName() << " has taken " << amount << " points of damage and is now destroyed!" << RESET << std::endl;
 	}
 	else
 	{
-		this->_hitPoints -= amount;
+		this->setHitPoints(this->_hitPoints - amount);
 		std::cout << YELLOW << "ClapTrap " << this->getName() << " has taken " << amount << " points of damage and now has " << this->getHitPoints() << " hit points left." << RESET << std::endl;
 	}
 }
