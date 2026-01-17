@@ -6,7 +6,7 @@
 /*   By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:37:53 by pmendez-          #+#    #+#             */
-/*   Updated: 2026/01/17 17:52:16 by pmendez-         ###   ########.fr       */
+/*   Updated: 2026/01/17 21:27:27 by pmendez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ ClapTrap::ClapTrap(void)
 	setEnergyPoints(10);
 	setHitPoints(10);
 	setAttackDamage(0);
-	std::cout << BLUE << "ClapTrap " << this->getName() << " has been created with default constructor" << RESET <<  std::endl;
+	std::cout << CYAN << "ClapTrap " << this->getName() << " has been created with default constructor" << RESET <<  std::endl;
 }
 	
 ClapTrap::ClapTrap(std::string name)
@@ -27,13 +27,13 @@ ClapTrap::ClapTrap(std::string name)
 	setEnergyPoints(10);
 	setHitPoints(10);
 	setAttackDamage(0);
-	std::cout << BLUE << "ClapTrap " << this->getName() << " has been created with name constructor" << RESET <<  std::endl;
+	std::cout << CYAN << "ClapTrap " << this->getName() << " has been created with name constructor" << RESET <<  std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &orig)
 {
 	*this = orig;
-	std::cout << BLUE << "ClapTrap " << this->getName() << " has been created with copy constructor" << RESET <<  std::endl;
+	std::cout << CYAN << "ClapTrap " << this->getName() << " has been created with copy constructor" << RESET <<  std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& orig)
@@ -46,6 +46,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& orig)
 		setEnergyPoints(orig.getEnergyPoints());
 		setAttackDamage(orig.getAttackDamage());
 	}
+	std::cout << CYAN << "ClapTrap " << this->getName() << " has been created with assignment operator " << RESET << std::endl; 
 	return (*this);
 }
 

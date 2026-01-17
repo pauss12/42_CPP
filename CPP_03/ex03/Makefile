@@ -6,11 +6,11 @@
 #    By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/17 21:37:34 by pmendez-          #+#    #+#              #
-#    Updated: 2025/12/13 18:31:16 by pmendez-         ###   ########.fr        #
+#    Updated: 2026/01/17 21:30:00 by pmendez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = program
+NAME = DiamondTrap
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 

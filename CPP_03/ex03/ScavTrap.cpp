@@ -6,7 +6,7 @@
 /*   By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 18:29:14 by pmendez-          #+#    #+#             */
-/*   Updated: 2026/01/17 18:23:36 by pmendez-         ###   ########.fr       */
+/*   Updated: 2026/01/17 21:28:45 by pmendez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ ScavTrap::ScavTrap(void) : ClapTrap()
 	setHitPoints(100);
 	setEnergyPoints(50);
 	setAttackDamage(20);
-	std::cout << CYAN << "ScavTrap " << this->_name << " has been created with default constructor" << RESET << std::endl;
+	std::cout << ROSE << "ScavTrap " << this->_name << " has been created with default constructor" << RESET << std::endl;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
@@ -25,7 +25,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	setHitPoints(100);
 	setEnergyPoints(50);
 	setAttackDamage(20);
-	std::cout << CYAN << "ScavTrap " << this->_name << " has been created with name constructor" << RESET << std::endl;
+	std::cout << ROSE << "ScavTrap " << this->_name << " has been created with name constructor" << RESET << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &orig) : ClapTrap(orig)
@@ -34,7 +34,7 @@ ScavTrap::ScavTrap(const ScavTrap &orig) : ClapTrap(orig)
 	setHitPoints(orig._hitPoints);
 	setEnergyPoints(orig._energyPoints);
 	setAttackDamage(orig._attackDamage);
-	std::cout << CYAN << "ScavTrap " << this->getName() << " has been created with copy constructor" << RESET <<  std::endl;
+	std::cout << ROSE << "ScavTrap " << this->getName() << " has been created with copy constructor" << RESET <<  std::endl;
 }
 
 
