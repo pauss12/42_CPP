@@ -41,7 +41,7 @@ Character &Character::operator=(const Character &orig)
 			}
 			// Una vez sabemos que esta todo limpio, solo se asigna
 			if (orig._inventory[i])
-				this->_inventory[i] = orig._inventory[i];
+				this->_inventory[i] = orig._inventory[i]->clone();
 		}
 	}
 	std::cout << "The Character provided has been assigned to the new one " << std::endl;
@@ -52,7 +52,10 @@ Character::~Character()
 {
 	std::cout << "Deleting the Character " << this->_name << "\n";
 	for (int i = 0; i < 4; i++)
+	{
 		delete _inventory[i];
+		_inventory[i] = NULL;
+	}
 }
 
 // METHODS ---- ------------------------------------------
@@ -83,13 +86,12 @@ void Character::unequip(int idx)
 {
 	if (idx < 0 || idx >= 4 || !this->_inventory[idx])
 	{
-		std::cout << " That index [" << idx << "] is not available. :(" << std::endl;
+		std::cout << " The Materia you are trying to unequip in index [" << idx << "] is not available. :(" << std::endl;
 		return ;
 	}
 	if (this->_inventory[idx]) 
 	{
-		std::cout << " That Materia " << this->_inventory[idx]->getType() << "in the index  [" << idx << "] has been deleted." << std::endl;
-		delete this->_inventory[idx];
+		std::cout << " That Materia " << this->_inventory[idx]->getType() << "in the index  [" << idx << "] has been unequipped." << std::endl;
 		this->_inventory[idx] = NULL;
 	}
 }
@@ -98,9 +100,18 @@ void Character::use(int idx, ICharacter& target)
 {
 	if (idx < 0 || idx >= 4 || !this->_inventory[idx])
 	{
-		std::cout << " That index [" << idx << "] is not available. :(" << std::endl;
+		std::cout << " The Materia you are trying to use in index [" << idx << "] is not available. :(" << std::endl;
 		return ;
 	}
-	std::cout << this->_name << " Using " << this->_inventory[idx]->getType() << " on " << target.getName() << "\n";
+	std::cout << this->getName() << " is using [" << this->_inventory[idx]->getType() << "] on " << target.getName() << std::endl;
 	this->_inventory[idx]->use(target);
+}
+
+// GETTERS
+
+AMateria* Character::getMateria(int idx) const
+{
+	if (idx < 0 || idx >= 4)
+		return NULL;
+	return this->_inventory[idx];
 }

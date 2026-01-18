@@ -1,11 +1,13 @@
 NAME = interface
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 #-MDD -MP
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address,leak #-MDD -MP
 
 FILES = main.cpp \
 	AMateria.cpp \
 	Ice.cpp \
-	Cure.cpp
+	Cure.cpp \
+	Character.cpp \
+	MateriaSource.cpp
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
