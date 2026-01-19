@@ -2,7 +2,7 @@ NAME = animalWithBrain
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
-FILES = Animal.cpp main.cpp Dog.cpp Cat.cpp Brain.cpp
+FILES = Animal.cpp main.cpp Dog.cpp Cat.cpp Brain.cpp WrongAnimal.cpp WrongCat.cpp
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
 DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.d)))
