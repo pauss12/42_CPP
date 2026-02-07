@@ -7,34 +7,34 @@
 
 int main()
 {
-	// const Animal* animal = new Animal();
-	// const Animal* spike = new Dog();
-	// const Animal* tom = new Cat();
+	const Animal* animal = new Animal();
+	const Animal* spike = new Dog();
+	Animal* tom = new Cat();
 
-	// std::cout << tom->getType() << " " << std::endl;
-	// std::cout << tom->getType() << " " << std::endl;
-	// tom->makeSound();
-	// spike->makeSound();
-	// animal->makeSound();
+	std::cout << tom->getType() << " " << std::endl;
+	std::cout << tom->getType() << " " << std::endl;
+	tom->makeSound();
+	spike->makeSound();
+	animal->makeSound();
 
-	// delete animal;
-	// delete spike;
-	// delete tom;
+	delete animal;
+	delete spike;
+	delete tom;
 
-	const WrongAnimal*	meta = new WrongAnimal();
-	std::cout << "\n\n";
-	const WrongAnimal*	i = new WrongCat();
+	// const WrongAnimal*	meta = new WrongAnimal();
+	// std::cout << "\n\n";
+	// const WrongAnimal*	i = new WrongCat();
 	
-	std::cout << "\n\n";
-	std::cout << i->getType() << " \n" << std::endl;
-	std::cout << "\n\n";
-	meta->makeSound();
-	std::cout << "\n\n";
-	i->makeSound();
-	std::cout << "\n\n";
+	// std::cout << "\n\n";
+	// std::cout << i->getType() << " \n" << std::endl;
+	// std::cout << "\n\n";
+	// meta->makeSound();
+	// std::cout << "\n\n";
+	// i->makeSound();
+	// std::cout << "\n\n";
 
-	delete meta;
-	delete i;
+	// delete meta;
+	// delete i;
 
 	return (0);
 }

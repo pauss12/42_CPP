@@ -2,6 +2,7 @@
 #define WRONG_ANIMAL_HPP
 
 # include <iostream>
+# include <cstdlib>
 # include <string>
 
 # define GREEN "\033[0;32m"

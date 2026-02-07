@@ -1,9 +1,9 @@
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#ifndef WRONG_CAT_HPP
+# define WRONG_CAT_HPP
 
 # include <iostream>
 # include <string>
-# include <cstdlib>
+# include "WrongAnimal.hpp"
 
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m\033[1m"
@@ -18,19 +18,15 @@
 # define GRAY	"\x1B[38;2;176;174;174m"
 # define RESET	"\033[0m"
 
-class Animal {
-
-	protected:
-		std::string _type;
-
+class WrongCat : public WrongAnimal
+{
 	public:
-		Animal();
-		Animal(const Animal& orig);
-		Animal& operator=(const Animal& orig);
-		virtual ~Animal();
+		WrongCat();
+		WrongCat(const WrongCat& orig);
+		WrongCat& operator=(const WrongCat& orig);
+		~WrongCat();
 
-		virtual void makeSound() const;
-		std::string getType() const;
+		void makeSound() const;
 };
 
 #endif

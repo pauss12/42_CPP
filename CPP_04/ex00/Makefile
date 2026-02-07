@@ -1,8 +1,8 @@
 NAME = animal
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP 
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address,leak #-MMD -MP 
 
-FILES = Animal.cpp main.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
+FILES = Animal.cpp main.cpp Dog.cpp Cat.cpp
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
 DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.d)))
