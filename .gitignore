@@ -2,3 +2,5 @@
 *.o
 animalWithBrain
 abstractAnimal
+*.d
+animal
