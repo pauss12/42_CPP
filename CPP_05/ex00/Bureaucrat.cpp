@@ -18,9 +18,9 @@ Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name.empty() ?
 	std::cout << BLUE << "Bureaucrat with name [ " << this->getName() << " ] and Grade " << this->getGrade() <<  " has been created" << RESET << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &orig)
+Bureaucrat::Bureaucrat(const Bureaucrat &orig) : _name(orig._name), _grade(orig._grade)
 {
-	std::cout << CYAN << "Copy constructor called " << RESET << std::endl;
+	std::cout << LIGHT_BLUE << "Bureaucrat has been created with the the copy constructor called " << RESET << std::endl;
 }
 
 Bureaucrat Bureaucrat::operator=(const Bureaucrat &src)
@@ -36,7 +36,10 @@ Bureaucrat Bureaucrat::operator=(const Bureaucrat &src)
 // ###################### DESTRUCTORES ###################################
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << PURPLE << "Destructor for " << this->getName() << "has been called " << RESET << std::endl;
+	if (this->getName().empty())
+		std::cout << PURPLE << "Destructor for a Bureaucrat with no NAME has been called " << RESET << std::endl;
+	else
+		std::cout << PURPLE << "Destructor for " << this->getName() << " has been called " << RESET << std::endl;
 }
 
 // ###################### GETTERS ###################################
@@ -81,6 +84,13 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 // ###################### PRINTING ###################################
 std::ostream& operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
 {
-	os << CYAN << bureaucrat.getName() << RESET << ", bureaucrat grade " << ROSE << bureaucrat.getGrade() << RESET << std::endl;
+	std::string name = bureaucrat.getName();
+	if (bureaucrat.getName().empty() || bureaucrat.getName().compare("Default") == 0)
+	{
+		os << ORANGE << "WARNING" << RESET << std::endl << "Bureaucrat has been created before with no NAME " << std::endl;
+		std::cout << "It will be printed as 'Default'" << std::endl << std::endl;
+		name = "Default";
+	}
+	os << CYAN << name << RESET << ", bureaucrat grade " << ROSE << bureaucrat.getGrade() << RESET << std::endl;
 	return (os);
 }
