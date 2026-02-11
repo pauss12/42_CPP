@@ -18,6 +18,8 @@
 # define GRAY    "\x1B[38;2;176;174;174m"
 # define RESET "\033[0m"
 
+# include "Bureaucrat.hpp"
+
 class Form
 {
 	private:
@@ -28,7 +30,7 @@ class Form
 
 	public:
 		Form();
-		Form(const std::string name, const int gradeToSign, const int gradeToExecute);
+		Form(const std::string name, bool _isSigned ,const int gradeToSign, const int gradeToExecute);
 		Form(const Form &copy);
 		Form &operator=(const Form &copy);
 		virtual ~Form();
@@ -38,7 +40,7 @@ class Form
 		int getGradeToSign() const;
 		int getGradeToExecute() const;
 
-		void beSigned(const class Bureaucrat &bureaucrat);
+		void beSigned(const Bureaucrat &bureaucrat);
 
 		class GradeTooHighException : public std::exception
 		{
@@ -50,5 +52,7 @@ class Form
 			virtual const char* what() const throw();
 		};
 };
+
+std::ostream& operator<<(std::ostream& os, Form const& form);
 
 #endif
