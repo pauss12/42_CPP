@@ -83,7 +83,7 @@ void Form::beSigned(const Bureaucrat &bureaucrat)
 {
 	if (this->_name.empty())
 	{
-		std::cout << RED << "ERROR" << RESET << " Form has no NAME" << std::endl;
+		std::cout << RED << "ERROR" << RESET << " Bureaucrat [" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because it has no name." << std::endl;
 		return ;
 	}
 	if (this->_isSigned)
@@ -97,7 +97,10 @@ void Form::beSigned(const Bureaucrat &bureaucrat)
 		std::cout << GREEN << "Bureaucrat [" << bureaucrat.getName() << "] signed [" << this->getName() << "]" << RESET << std::endl;
 	}
 	else
+	{
+		std::cout << RED << "ERROR" << RESET << " Bureaucrat [" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because their grade is too low." << std::endl;
 		throw Form::GradeTooLowException();
+	}
 }
 
 std::ostream& operator<<(std::ostream& os, Form const& form)
