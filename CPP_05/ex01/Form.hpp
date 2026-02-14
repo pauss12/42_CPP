@@ -4,6 +4,9 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include <iomanip>
+
+class Bureaucrat;
 
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m\033[1m"
@@ -40,7 +43,7 @@ class Form
 		int getGradeToSign() const;
 		int getGradeToExecute() const;
 
-		void beSigned(const Bureaucrat &bureaucrat);
+		void beSigned(const Bureaucrat &bureaucrat, bool calledByBureaucrat);
 
 		class GradeTooHighException : public std::exception
 		{
