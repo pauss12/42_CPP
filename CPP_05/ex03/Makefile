@@ -1,8 +1,8 @@
-NAME = form
+NAME = intern
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address,leak #-MDD -MP
 
-FILES = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp
+FILES = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp Intern.cpp
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))

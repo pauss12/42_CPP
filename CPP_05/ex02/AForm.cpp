@@ -98,8 +98,9 @@ void AForm::beSigned(const Bureaucrat &bureaucrat, bool calledByBureaucrat)
 	}
 	if (bureaucrat.getGrade() <= this->_gradeToSign)
 	{
+		this->_isSigned = true;
 		if (calledByBureaucrat)
-			this->_isSigned = true;
+			return ;
 		else
 			std::cout << GREEN << "[" << bureaucrat.getName() << "] signed [" << this->getName() << "]" << RESET << std::endl;
 	}
