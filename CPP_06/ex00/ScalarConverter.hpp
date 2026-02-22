@@ -20,6 +20,9 @@
 # define GRAY    "\x1B[38;2;176;174;174m"
 # define RESET "\033[0m"
 
+# define MIN_INT -2147483648
+# define MAX_INT 2147483647
+
 class ScalarConverter {
 	
 	private:
@@ -27,11 +30,10 @@ class ScalarConverter {
 		ScalarConverter(const ScalarConverter& other);
 		ScalarConverter& operator=(const ScalarConverter& other);
 		~ScalarConverter();
-		
-		void convertChar(const std::string& literal);
-		void convertInt(const std::string& literal);
-		void convertFloat(const std::string& literal);
-		void convertDouble(const std::string& literal);
+		static void convertChar(const std::string& literal);
+		static void convertInt(const std::string& literal, int type);
+		static void convertFloat(const std::string& literal, int type);
+		static void convertDouble(const std::string& literal, int type);
 
 	public:
 		static void convert(const std::string& literal);
