@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <limits>
+#include <iomanip>
 
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m\033[1m"
@@ -22,6 +23,8 @@
 
 # define MIN_INT -2147483648
 # define MAX_INT 2147483647
+# define MIN_FLOAT -3.402823466e+38F
+# define MAX_FLOAT 3.402823466e+38F
 
 class ScalarConverter {
 	

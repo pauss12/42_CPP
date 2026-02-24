@@ -6,11 +6,18 @@
 # Detecta errores COMMONES del ejercicio
 # ═══════════════════════════════════════════════════════════════
 
-RED='\033[0;31m' GREEN='\033[0;32m' YELLOW='\033[1;33m' 
-BLUE='\033[0;34m' PURPLE='\033[0;35m' NC='\033[0m'
-
-# Colores de ScalarConverter (si los tienes)
-C_GREEN="\033[32m" C_RESET="\033[0m"
+GREEN="\033[0;32m"
+RED="\033[0;31m\033[1m"
+ORANGE="\001\033[38;5;208m\002"
+BLUE="\033[0;34m"
+PURPLE="\033[0;35m"
+CYAN="\033[0;36m"
+YELLOW="\x1b[33m"
+ROSE="\x1B[38;2;255;151;203m"
+LIGHT_BLUE="\x1B[38;2;53;149;240m"
+LIGHT_GREEN="\x1B[38;2;17;245;120m"
+GRAY="\x1B[38;2;176;174;174m"
+NC='\033[0m'
 
 print_banner() {
     clear
@@ -42,6 +49,7 @@ check_files() {
         exit 1
     fi
 }
+
 compile_and_test() {
     echo -e "${BLUE}🔨 Compilando con flags de 42...${NC}"
     
@@ -86,14 +94,14 @@ EOF
     exit 1
 }
 
-
-
 run_test() {
     local input="$1" expected="$2" test_name="$3"
+    ((current_test++))  # Contador global de tests
+    
     local output=$(./scalar_test "$input" 2>&1)
-    
-    echo -ne "${YELLOW}[$test_name]${NC} '$input' → "
-    
+
+    echo -ne "\n ${CYAN}[TEST ${current_test}]${NC}  ${YELLOW} ${test_name}${NC} '$input' → "
+
     if echo "$output" | grep -qi "$expected" 2>/dev/null; then
         echo -e "${GREEN}✅ PASS${NC}"
         return 0
@@ -113,12 +121,14 @@ detailed_test() {
 }
 
 main() {
+	
     print_banner
     check_files
     compile_and_test
     
     echo -e "\n${GREEN}🚀 INICIANDO TESTS${NC}"
     local fails=0 total=0
+    local current_test=0  # ← NUEVO: Contador de tests
     
     # Tests críticos del subject
     ((total++)); run_test "c" "char: 'c'" "CHAR OK" || ((fails++))
