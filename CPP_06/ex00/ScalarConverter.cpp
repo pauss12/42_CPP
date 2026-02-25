@@ -25,73 +25,45 @@ ScalarConverter::~ScalarConverter()
 }
 
 // FUNCTIONS NEEDED TO THE CONVERSION ------------------------------------------------------------------------------------
-// static int getType(const std::string& literal)
-// {
-// 	if (literal.length() == 1 && !std::isdigit(literal[0]))
-// 		return (0); // char
-// 	else if (literal.find('.') == std::string::npos && literal.find('f') == std::string::npos)
-// 		return (1); // int
-// 	else if (literal.find('f') != std::string::npos)
-// 		return (2); // float
-// 	else if (literal.find('.') != std::string::npos)
-// 		return (3); // double
-// 	return (-1);
-// }
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// int	ScalarConverter::getType(std::string str)
-// {
-// 	bool	dot_found = false;
-// 	int		sign = 0;
-// 	size_t	i = 0;
-
-// 	if (str.length() == 1 && !isdigit(str[0]) && PRINTABLE(str[0]))
-// 		return (0); // char
-// 	if (str[0] == '-' || str[0] == '+')
-// 	{ 
-// 		i++;
-// 		sign = 1;
-// 		if (!isdigit(str[i]) && !str.compare(i, 3, "inf") && !str.compare(i, 3, "nan"))
-// 			return (-1);
-// 	}
-// 	if (std::isinf(atof(str.c_str())) == 1.0f || std::isinf(atof(str.c_str())) == -1.0f)
-// 		return (4); // inf
-// 	while(str[i] != '\0')
-// 	{
-// 		if (str[i] == '.')
-// 		{
-// 			if (dot_found)
-// 				return (-1); // invalid
-// 			dot_found = true;
-// 		}
-// 		else if (!isdigit(str[i]))
-// 		{
-// 			if (str[i] == 'f' && str[i + 1] == '\0' && dot_found)
-// 				return (2); // float
-
-// 		}
-// 		i++;
-// 	}
-// 	if (sign)
-// 	if (dot_found)
-// 		return (1); // double
-// 	return (3); // int
-// }
-
-static int getType(const std::string& literal)
+static int getVariableType(const std::string& literal)
 {
+	std::string::size_type i;
+	int dot_found;
+
+	i = 0;
+	dot_found = 0;
 	if (literal.length() == 1 && !std::isdigit(literal[0]) && std::isprint(literal[0]))
-		return (0); // char
-	else if (literal.find('.') == std::string::npos && literal.find('f') == std::string::npos)
-		return (1); // int
-	else if (literal.find('f') != std::string::npos)
-		return (2); // float
-	else if (literal.find('.') != std::string::npos)
-		return (3); // double
-	else if (literal == "nan" || literal == "+inf" || literal == "-inf")
-		return (4); // inf
-	return (-1);
+		return (CHAR);
+	if (!std::isdigit(literal[0]) && !std::isinf(std::atof(literal.c_str())) && !std::isnan(std::atof(literal.c_str())))
+		return (UNDEFINED);
+	// Caso en el que encuentre un inf
+	if (!std::isdigit(literal[0]) && std::isinf(std::atof(literal.c_str())))
+		return (INF);
+	// Caso en el que encuentre un "nan"
+	if (!std::isdigit(literal[0]) && (literal == "nan"))
+		return (NOT_A_NUMBER);
+	while (i < literal.length())
+	{
+		// ¿Es Float?
+		if (literal[i] == '.')
+		{
+			if (dot_found == 1)
+				return (UNDEFINED);
+			dot_found = 1;
+		}
+		else if (literal[i] == 'f')
+		{
+			if (dot_found == 0)
+				return (UNDEFINED);
+			return (FLOAT);
+		}
+		i++;
+	}
+	if (dot_found == 1)
+		return (DOUBLE);
+	else if (dot_found == 0)
+		return (INT);
+	return (UNDEFINED);
 }
 
 void ScalarConverter::convertChar(const std::string& literal)
@@ -111,10 +83,10 @@ static bool parseLiteralToDouble(const std::string& literal, int type, double &o
 {
 	outDouble = std::atof(literal.c_str());
 	if (std::isnan(outDouble))
-		return false;
-	if (type == 2 || type == 3 || (type == 1 && literal.length() < 11))
-		return true;
-	return false;
+		return (false);
+	if (type == FLOAT || type == DOUBLE || (type == INT && literal.length() < 11))
+		return (true);
+	return (false);
 }
 
 void ScalarConverter::convertInt(const std::string& literal, int type)
@@ -125,7 +97,7 @@ void ScalarConverter::convertInt(const std::string& literal, int type)
 	if (!parseLiteralToDouble(literal, type, valor_double))
 	{
 		std::cout << "int: impossible" << std::endl;
-		return;
+		return ;
 	}
 	valor_int = static_cast<int>(valor_double);
 	if (valor_double < MIN_INT || valor_double > MAX_INT)
@@ -176,9 +148,9 @@ void ScalarConverter::convert(const std::string& literal)
 {
 	int	type;
 
-	type = getType(literal);
+	type = getVariableType(literal);
 	// Conversion logic goes here
-	if (type == -1)
+	if (type == UNDEFINED)
 	{
 		std::cout << RED << "ERROR: Invalid literal" << RESET << std::endl;
 		return;
