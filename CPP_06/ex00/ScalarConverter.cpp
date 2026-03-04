@@ -68,15 +68,26 @@ static int getVariableType(const std::string& literal)
 
 void ScalarConverter::convertChar(const std::string& literal)
 {
-	char value;
+	// If it's a single non-digit printable character, treat as char literal
+	if (literal.length() == 1 && !std::isdigit(static_cast<unsigned char>(literal[0])))
+	{
+		unsigned char c = static_cast<unsigned char>(literal[0]);
+		if (!std::isprint(c))
+			std::cout << "char: Non displayable" << std::endl;
+		else
+			std::cout << "char: '" << static_cast<char>(c) << "'" << std::endl;
+		return;
+	}
 
-	value = static_cast<char>(atoi(literal.c_str()));
-	if (!std::isprint(value))
+	// Otherwise try numeric conversion (e.g., "42" -> '*', or '0' -> Non displayable)
+	int iv = std::atoi(literal.c_str());
+	unsigned char c = static_cast<unsigned char>(iv);
+	if (!std::isprint(c))
 		std::cout << "char: Non displayable" << std::endl;
 	else if (literal.length() >= 3)
 		std::cout << "char: impossible" << std::endl;
 	else
-		std::cout << "char: '" << value << "'" << std::endl;
+		std::cout << "char: '" << static_cast<char>(c) << "'" << std::endl;
 }
 
 static bool parseLiteralToDouble(const std::string& literal, int type, double &outDouble)
