@@ -73,7 +73,7 @@ inputs=(
 expect_char=(
     "Non displayable"
     "impossible"
-    "'\*'"
+    "'*'"
     "'c'"
     "impossible"
     "impossible"
