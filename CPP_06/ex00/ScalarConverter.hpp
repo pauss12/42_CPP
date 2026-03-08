@@ -26,8 +26,6 @@
 # define MIN_FLOAT -3.402823466e+38F
 # define MAX_FLOAT 3.402823466e+38F
 
-// ENUM para los tipos de variables
-
 enum eType {
 	CHAR,
 	INT,
