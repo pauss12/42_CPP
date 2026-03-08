@@ -24,14 +24,13 @@ struct Data
 	std::string	content;
 };
 
-
 class Serializer {
 
 	private:
 		Serializer();
 		Serializer(const Serializer& other);
 		Serializer& operator=(const Serializer& other);
-		virtual ~Serializer() = 0;
+		~Serializer();
 
 	public:
 		static uintptr_t serialize(Data* ptr);

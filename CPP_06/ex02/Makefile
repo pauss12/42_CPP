@@ -6,16 +6,16 @@
 #    By: pmendez- <pmendez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/15 20:42:43 by pmendez-          #+#    #+#              #
-#    Updated: 2026/03/08 20:13:04 by pmendez-         ###   ########.fr        #
+#    Updated: 2026/03/08 20:35:20 by pmendez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = serializer
+NAME = identify
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 OBJ_DIR = obj
 
-FILES = Serializer.cpp main.cpp
+FILES = Base.cpp main.cpp A.cpp B.cpp C.cpp
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.o)))
 DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(FILES:.cpp=.d)))
