@@ -28,7 +28,7 @@ $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 
 clean:
 	@rm -f $(OBJS) $(DEPS)
-	@rmdir --ignore-fail-on-non-empty $(OBJ_DIR) 2> /dev/null || true
+	@rm -rf --ignore-fail-on-non-empty $(OBJ_DIR) 2> /dev/null || true
 	@echo "Cleaning finished! 🧹"
 
 fclean: clean
