@@ -5,7 +5,11 @@
 #include <iostream>
 #include <ostream>
 #include <climits>
+#include <fstream>
 #include <stdexcept>
+#include <string>
+#include <cstdio>
+#include <ctime>
 
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m\033[1m"
@@ -24,6 +28,7 @@ class BitcoinExchange
 {
     private:
         std::map<std::string, double> _database;
+        int _rate;
 
     public:
         BitcoinExchange();
@@ -31,8 +36,9 @@ class BitcoinExchange
         BitcoinExchange &operator=(const BitcoinExchange &other);
         ~BitcoinExchange();
 
-        // Funciones
-        
+        // Funciones -----------------------
+        void checkInput(const std::string &input);
+        void processFile(std::ifstream &file);
 };
 
 #endif
