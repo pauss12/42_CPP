@@ -55,7 +55,11 @@ static bool isLeapYear(int year)
 static int daysInMonth(int year, int month)
 {
     if (month == 2)
-        return isLeapYear(year) ? 29 : 28;
+    {
+        if (isLeapYear(year))
+            return 29;
+        return 28;
+    }
     if (month == 4 || month == 6 || month == 9 || month == 11)
         return 30;
     return 31;
@@ -71,36 +75,39 @@ static bool parseDate(const std::string &date, int &year, int &month, int &day)
 // ########## CHECKEO DE LA FECHA -------------------------------------
 bool check_date(const std::string &date)
 {
-    int year, month, day;
+    int     year;
+    int     month;
+    int     day;
+    int     currentYear;
+    time_t  t;
 
+    currentYear = 0;
     if (!parseDate(date, year, month, day))
     {
         std::cout << RED << "ERROR" << RESET << CYAN << " Invalid date format." << RESET << std::endl;
         return false;
     }
 
-    time_t t = time(NULL);
+    t = time(NULL);
     struct tm *tm_ptr = localtime(&t);
-    int currentYear = tm_ptr ? tm_ptr->tm_year + 1900 : 0;
+    if (tm_ptr)
+        currentYear = tm_ptr->tm_year + 1900;
     if (year < 0 || (currentYear > 0 && year > currentYear))
     {
         std::cout << RED << "ERROR" << RESET << CYAN << " Year out of range." << RESET << std::endl;
         return false;
     }
-
     if (month < 1 || month > 12)
     {
         std::cout << RED << "ERROR" << RESET << CYAN << " Month out of range." << RESET << std::endl;
         return false;
     }
-
     int maxDay = daysInMonth(year, month);
     if (day < 1 || day > maxDay)
     {
         std::cout << RED << "ERROR" << RESET << CYAN << " Day out of range for given month." << RESET << std::endl;
         return false;
     }
-
     return true;
 }
 
