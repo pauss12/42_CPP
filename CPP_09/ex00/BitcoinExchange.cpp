@@ -1,3 +1,6 @@
+#include <cstdio>
+#include <ctime>
+#include <cstdlib>
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange()
@@ -36,7 +39,7 @@ void BitcoinExchange::checkInput(const std::string &input)
     std::ifstream file(input.c_str());
     if (!file.is_open())
     {
-        std::cout << ORANGE << "Error: could not open file." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Could not open file." << RESET << std::endl;
         return; 
     }
     processFile(file);
@@ -60,7 +63,6 @@ static int daysInMonth(int year, int month)
 
 static bool parseDate(const std::string &date, int &year, int &month, int &day)
 {
-    // Expect format YYYY-MM-DD
     if (sscanf(date.c_str(), "%d-%d-%d", &year, &month, &day) != 3)
         return false;
     return true;
@@ -70,10 +72,10 @@ static bool parseDate(const std::string &date, int &year, int &month, int &day)
 bool check_date(const std::string &date)
 {
     int year, month, day;
-    // Enforce year to be non-negative and not in the future
+
     if (!parseDate(date, year, month, day))
     {
-        std::cout << CYAN << "Error: invalid date format." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Invalid date format." << RESET << std::endl;
         return false;
     }
 
@@ -82,20 +84,20 @@ bool check_date(const std::string &date)
     int currentYear = tm_ptr ? tm_ptr->tm_year + 1900 : 0;
     if (year < 0 || (currentYear > 0 && year > currentYear))
     {
-        std::cout << CYAN << "Error: year out of range." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Year out of range." << RESET << std::endl;
         return false;
     }
 
     if (month < 1 || month > 12)
     {
-        std::cout << CYAN << "Error: month out of range." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Month out of range." << RESET << std::endl;
         return false;
     }
 
     int maxDay = daysInMonth(year, month);
     if (day < 1 || day > maxDay)
     {
-        std::cout << CYAN << "Error: day out of range for given month." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Day out of range for given month." << RESET << std::endl;
         return false;
     }
 
@@ -105,28 +107,30 @@ bool check_date(const std::string &date)
 // ########## CHECKEO DEL VALOR -------------------------------------
 bool check_value(const std::string &valueStr)
 {
-    double value;
-    try
+    size_t a = valueStr.find_first_not_of(" \t");
+    if (a == std::string::npos)
     {
-        size_t idx;
-        value = std::stod(valueStr, &idx);
-        if (idx != valueStr.length())
-            throw std::invalid_argument("Extra characters after number");
-    }
-    catch (const std::exception &e)
-    {
-        std::cout << CYAN << "Error: invalid value format." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Empty value." << RESET << std::endl;
         return false;
     }
+    size_t b = valueStr.find_last_not_of(" \t");
+    std::string s = valueStr.substr(a, b - a + 1);
 
-    if (value < 0)
+    char *endptr = NULL;
+    double d = strtod(s.c_str(), &endptr);
+    if (endptr == s.c_str() || *endptr != '\0')
     {
-        std::cout << CYAN << "Error: value cannot be negative." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Invalid value." << RESET << std::endl;
         return false;
     }
-    if (value > 10000)
+    if (d < 0.0)
     {
-        std::cout << CYAN << "Error: value exceeds maximum allowed." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Value cannot be negative." << RESET << std::endl;
+        return false;
+    }
+    if (d > 1000.0)
+    {
+        std::cout << RED << "ERROR" << RESET << CYAN << " Value exceeds maximum allowed (1000)." << RESET << std::endl;
         return false;
     }
     return true;
@@ -139,22 +143,15 @@ void BitcoinExchange::processFile(std::ifstream &file)
     std::string part2;
 
     if (!std::getline(file, line))
-    {
         std::cout << ORANGE << "Error: file is empty." << RESET << std::endl;
-        return;
-    }
     else
     {
         if (line != "date | value")
-        {
-            std::cout << ORANGE << "Error: invalid line format." << RESET << std::endl;
-            return;
-        }
+            std::cout << RED << "ERROR" << RESET << CYAN << " Invalid line format." << RESET << std::endl;
     }
 
     while (std::getline(file, line))
     {
-        // Ignorar líneas comentadas
         if (line.empty() || line[0] == '#')
             continue;
 
@@ -164,6 +161,6 @@ void BitcoinExchange::processFile(std::ifstream &file)
         part2 = line.substr(line.find(" | ") + 3);
 
         if (!check_date(part1) || !check_value(part2))
-            return ;
+            continue;
     }
 }
