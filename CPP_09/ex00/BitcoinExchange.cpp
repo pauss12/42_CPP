@@ -32,19 +32,7 @@ BitcoinExchange::~BitcoinExchange()
     // std::cout << PURPLE << "Destructor called" << RESET << std::endl;
 }
 
-// ######################## FUNCIONES ---------------------
-void BitcoinExchange::checkInput(const std::string &input)
-{
-    // Intenta abrir el fichero input.txt
-    std::ifstream file(input.c_str());
-    if (!file.is_open())
-    {
-        std::cout << RED << "ERROR" << RESET << CYAN << " Could not open file." << RESET << std::endl;
-        return; 
-    }
-    processFile(file);
-    file.close();
-}
+// ######################## FUNCIONES --------------------------------------
 
 // STATIC FUNCTIONS THAT HELP TO CHECK THE DATE AND VALUE -----------------------------
 static bool isLeapYear(int year)
@@ -94,18 +82,21 @@ bool check_date(const std::string &date)
         currentYear = tm_ptr->tm_year + 1900;
     if (year < 0 || (currentYear > 0 && year > currentYear))
     {
-        std::cout << RED << "ERROR" << RESET << CYAN << " Year out of range." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " bad input " << RESET << "=> " << date << std::endl;
+        std::cout << CYAN << "Year out of range." << RESET << std::endl;
         return false;
     }
     if (month < 1 || month > 12)
     {
-        std::cout << RED << "ERROR" << RESET << CYAN << " Month out of range." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " bad input " << RESET << "=> " << date << std::endl;
+        std::cout << CYAN << "Month out of range." << RESET << std::endl;
         return false;
     }
     int maxDay = daysInMonth(year, month);
     if (day < 1 || day > maxDay)
     {
-        std::cout << RED << "ERROR" << RESET << CYAN << " Day out of range for given month." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " bad input " << RESET << "=> " << date << std::endl;
+        std::cout << CYAN << "Day out of range for given month." << RESET << std::endl;
         return false;
     }
     return true;
@@ -132,25 +123,36 @@ bool check_value(const std::string &valueStr)
     }
     if (d < 0.0)
     {
-        std::cout << RED << "ERROR" << RESET << CYAN << " Value cannot be negative." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " not a positive number." << RESET << std::endl;
         return false;
     }
     if (d > 1000.0)
     {
-        std::cout << RED << "ERROR" << RESET << CYAN << " Value exceeds maximum allowed (1000)." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " too large a number." << RESET << std::endl;
         return false;
     }
     return true;
 }
 
-void BitcoinExchange::processFile(std::ifstream &file)
+void BitcoinExchange::processFile(const std::string &filename)
 {
+    std::ifstream file(filename.c_str());
+    if (!file.is_open())
+    {
+        std::cout << RED << "ERROR" << RESET << CYAN << " Could not open file." << RESET << std::endl;
+        return;
+    }
     std::string line;
     std::string part1;
     std::string part2;
+    double      rate;
+    double      value;
+    std::string date;
 
+    rate = 0;
+    value = 0.0;
     if (!std::getline(file, line))
-        std::cout << ORANGE << "Error: file is empty." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " File is empty." << RESET << std::endl;
     else
     {
         if (line != "date | value")
@@ -162,12 +164,83 @@ void BitcoinExchange::processFile(std::ifstream &file)
         if (line.empty() || line[0] == '#')
             continue;
 
-        std::cout << "Processing line: " << line << std::endl;
-
         part1 = line.substr(0, line.find(" | "));
         part2 = line.substr(line.find(" | ") + 3);
 
         if (!check_date(part1) || !check_value(part2))
             continue;
+
+        date = findNearestDate(part1);
+        rate = getRate(date);
+        value = strtod(part2.c_str(), NULL);
+
+        std::cout << part1 << " => " << part2 << " = " << (value * rate) << std::endl;
+        
     }
+}
+
+void BitcoinExchange::loadDatabase(const std::string &filename)
+{
+    std::ifstream file(filename.c_str());
+    if (!file.is_open())
+    {
+        std::cout << RED << "ERROR" << RESET << CYAN << " Could not open database file." << RESET << std::endl;
+        return;
+    }
+    std::string line;
+
+    if (!std::getline(file, line))
+        std::cout << RED << "ERROR" << RESET << CYAN << " File is empty." << RESET << std::endl;
+    else
+    {
+        if (line != "date,exchange_rate")
+            std::cout << RED << "ERROR" << RESET << CYAN << " Invalid line format." << RESET << std::endl;
+    }
+
+    while (std::getline(file, line))
+    {
+        if (line.empty() || line[0] == '#')
+            continue;
+        size_t commaPos = line.find(',');
+        if (commaPos == std::string::npos)
+        {
+            std::cout << RED << "ERROR" << RESET << CYAN << " Invalid database line format." << RESET << std::endl;
+            continue;
+        }
+        std::string date = line.substr(0, commaPos);
+        std::string rateStr = line.substr(commaPos + 1);
+        char *endptr = NULL;
+        double rate = strtod(rateStr.c_str(), &endptr);
+        if (endptr == rateStr.c_str() || *endptr != '\0')
+        {
+            std::cout << RED << "ERROR" << RESET << CYAN << " Invalid exchange rate in database." << RESET << std::endl;
+            continue;
+        }
+        _database[date] = rate;
+    }
+    file.close();
+}
+
+// GET RATE FUNCTION ----------------------------------------------------------
+double BitcoinExchange::getRate(const std::string &date) const
+{
+    std::map<std::string, double>::const_iterator it = _database.find(date);
+    if (it != _database.end())
+        return it->second;
+    return (-1.0);
+}
+
+// FIND NEAREST DATE FUNCTION ------------------------------------------------------
+std::string BitcoinExchange::findNearestDate(const std::string &date) const
+{
+    std::map<std::string, double>::const_iterator it = _database.lower_bound(date);
+    if (it == _database.end())
+        return (--it)->first;
+    if (it == _database.begin())
+        return (it->first);
+
+    std::map<std::string, double>::const_iterator prevIt = std::prev(it);
+    if ((date > prevIt->first && date < it->first) || (date == prevIt->first))
+        return prevIt->first;
+    return (it->first);
 }

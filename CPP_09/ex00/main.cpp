@@ -4,13 +4,19 @@ int main(int argc, char *argv[])
 {
     BitcoinExchange exchange;
     
-    // Aquí compruebas si le metes un argumento o no
     if (argc != 2)
     {
-        std::cout << ORANGE << "Error: could not open file." << RESET << std::endl;
+        std::cout << RED << "ERROR" << RESET << CYAN << " Usage: ./BitcoinExchange <input_file>" << RESET << std::endl;
         return (1);
     }
-    exchange.checkInput(argv[1]);
-
-    return 0;
+    exchange.loadDatabase("data.csv");
+    std::ifstream file(argv[1]);
+    if (!file.is_open())
+    {
+        std::cout << RED << "ERROR" << RESET << CYAN << " Could not open file." << RESET << std::endl;
+        return (1);
+    }
+    exchange.processFile(argv[1]);
+    file.close();
+    return (0);
 }

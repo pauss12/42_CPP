@@ -38,7 +38,10 @@ class BitcoinExchange
 
         // Funciones -----------------------
         void checkInput(const std::string &input);
-        void processFile(std::ifstream &file);
+        void processFile(const std::string &filename);
+        void loadDatabase(const std::string &filename);
+        double getRate(const std::string &date) const;
+        std::string findNearestDate(const std::string &date) const;
 };
 
 #endif
