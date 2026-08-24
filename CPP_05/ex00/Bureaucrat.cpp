@@ -8,9 +8,9 @@ Bureaucrat::Bureaucrat() : _name(""), _grade(150)
 
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name.empty() ? "Default" : name), _grade(grade)
 {
-	if (grade >= 150)
+	if (grade > 150)
 		throw Bureaucrat::GradeTooLowException();
-	else if (grade <= 1)
+	else if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	if (name.empty() || this->_name.compare("Default") == 0)
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "Your Bureaucrat has been named as 'Default' " << std::endl;
