@@ -84,7 +84,6 @@ void Bureaucrat::incrementGrade()
 Bureaucrat::GradeTooHighException::GradeTooHighException(const char *errorMessage) 
     : _errorMessage(errorMessage) {}
 
-
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
     return _errorMessage;
 }
