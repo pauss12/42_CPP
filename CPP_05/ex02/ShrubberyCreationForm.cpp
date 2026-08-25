@@ -29,8 +29,13 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 {
 	if (executor.getGrade() > this->getGradeToExecute())
 	{
-		std::cerr << RED << "The bureaucrat's grade is too low to execute the form" << RESET << std::endl;
-		return;
+		throw AForm::GradeTooLowException("The bureaucrat's grade is too low to execute the form");
+		return ;
+	}
+	else if (!this->getIsSigned())
+	{
+		throw AForm::GradeTooLowException("The form is not signed yet");
+		return ;
 	}
 
 	// Tiene que crear un fichero con un arbol ASCII

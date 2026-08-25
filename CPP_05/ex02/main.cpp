@@ -3,6 +3,8 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 
+//TODO: HAcer pruebas de las excepciones cuando se llanma a execute
+
 int main(void)
 {
 	std::cout << std::endl << YELLOW << "------------ CREATING A BUREAUCRAT WITH PARAMETERS --------------------- " << RESET << std::endl;
