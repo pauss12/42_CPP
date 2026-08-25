@@ -80,6 +80,19 @@ void Bureaucrat::incrementGrade()
 	this->_grade--;
 }
 
+void Bureaucrat::executeForm(AForm const &form) const
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << GREEN << this->getName() << " executed " << form.getName() << RESET << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << RED << "ERROR" << RESET << std::endl << this->getName() << " couldn't execute " << form.getName() << " because " << e.what() << RESET << std::endl;
+	}
+}
+
 // ###################### EXCEPCIONES ###################################
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(const char *errorMessage) 

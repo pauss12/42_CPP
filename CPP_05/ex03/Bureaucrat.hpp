@@ -49,13 +49,21 @@ class Bureaucrat {
 	// Excepciones a crear ---
 	class	GradeTooHighException : public std::exception
 	{
+		private:
+			const char* _errorMessage;
+
 		public:
+			GradeTooHighException(const char *errorMessage);
 			virtual const char *what() const throw();
 	};
 
 	class	GradeTooLowException : public std::exception
 	{
+		private:
+			const char* _errorMessage;
+
 		public:
+			GradeTooLowException(const char *errorMessage);
 			virtual const char *what() const throw();
 	};
 

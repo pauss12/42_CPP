@@ -18,6 +18,16 @@ int main(void)
 
 	std::cout << std::endl << YELLOW << "################################# TESTS ##############################" << RESET << std::endl;
 
+	std::cout << std::endl << YELLOW << "------------ TEST 0: TRYING TO INCREMENT BUREAUCRAT GRADE --------------------- " << RESET << std::endl;
+	try {
+		
+		Bureaucrat b0("John", 1);
+		b0.incrementGrade();
+
+	} catch (const std::exception &e) {
+		std::cerr << e.what() << std::endl;
+	}
+
 	std::cout << std::endl << YELLOW << "------------ TEST 1: CREATING A NAMELESS FORM --------------------- " << RESET << std::endl;
 	Form f4("", 5, 10);
 	std::cout << f4 << std::endl;

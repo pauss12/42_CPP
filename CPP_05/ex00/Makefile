@@ -1,6 +1,6 @@
 NAME = bureaucrat
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address,leak #-MDD -MP
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
 FILES = main.cpp Bureaucrat.cpp
 

@@ -36,7 +36,7 @@ class Form
 		Form(const std::string name, const int gradeToSign, const int gradeToExecute);
 		Form(const Form &copy);
 		Form &operator=(const Form &copy);
-		virtual ~Form();
+		~Form();
 
 		const std::string getName() const;
 		bool getIsSigned() const;

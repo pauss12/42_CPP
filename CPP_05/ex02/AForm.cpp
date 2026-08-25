@@ -23,7 +23,7 @@ AForm::AForm(const std::string name, const int gradeToSign, const int gradeToExe
 		std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
 }
 
-AForm::AForm(const AForm &src) : _name(src._name.empty() ? "Default" : src._name), _isSigned(src._isSigned), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)
+AForm::AForm(const AForm &src) : _name(src._name.empty() ? "Default" : src._name), _isSigned(false), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)
 {
 	std::cout << CYAN << "The copy constructor has been called, it has given to the Form the name: " << src.getName() << RESET << std::endl;
 }
@@ -102,17 +102,14 @@ void AForm::beSigned(const Bureaucrat &bureaucrat, bool calledByBureaucrat)
 	{
 		this->_isSigned = true;
 		if (calledByBureaucrat)
-		{
-			throw AForm::GradeTooLowException("Bureaucrat grade is too low to sign the form!");
 			return ;
-		}
 		else
 			std::cout << GREEN << "[" << bureaucrat.getName() << "] signed [" << this->getName() << "]" << RESET << std::endl;
 	}
 	else
 	{
 		if (calledByBureaucrat)
-			throw AForm::GradeTooLowException("Bureaucrat grade is too low to sign the form!");
+			return ;
 		else
 			std::cout << RED << "ERROR" << std::endl << RESET << "[" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because their grade is too low." << std::endl;
 	}
