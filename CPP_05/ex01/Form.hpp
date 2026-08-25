@@ -33,7 +33,7 @@ class Form
 
 	public:
 		Form();
-		Form(const std::string name, bool _isSigned ,const int gradeToSign, const int gradeToExecute);
+		Form(const std::string name, const int gradeToSign, const int gradeToExecute);
 		Form(const Form &copy);
 		Form &operator=(const Form &copy);
 		virtual ~Form();
@@ -47,12 +47,20 @@ class Form
 
 		class GradeTooHighException : public std::exception
 		{
-			virtual const char* what() const throw();
+			private:
+				const char* _errorMessage;
+			public:
+				GradeTooHighException(const char *errorMessage);
+				virtual const char* what() const throw();
 		};
 
 		class GradeTooLowException : public std::exception
 		{
-			virtual const char* what() const throw();
+			private:
+				const char* _errorMessage;
+			public:
+				GradeTooLowException(const char *errorMessage);
+				virtual const char* what() const throw();
 		};
 };
 

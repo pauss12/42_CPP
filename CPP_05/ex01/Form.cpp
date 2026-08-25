@@ -7,15 +7,20 @@ Form::Form() : _name("Default"), _isSigned(false), _gradeToSign(150), _gradeToEx
 }
 
 
-Form::Form(const std::string name, bool isSigned, const int gradeToSign, const int gradeToExecute) : _name(name.empty() ? "Default" : name), _isSigned(isSigned), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
+Form::Form(const std::string name, const int gradeToSign, const int gradeToExecute) : _name(name.empty() ? "Default" : name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
 	if (name.empty())
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "The form has been named as 'Default' " << std::endl;
-	if (gradeToExecute < 1 || gradeToSign < 1)
-		throw Form::GradeTooHighException();
-	else if (gradeToExecute > 150 || gradeToSign > 150)
-		throw Form::GradeTooLowException();
-	std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
+	if (gradeToExecute < 1)
+		throw Form::GradeTooHighException("Grade to execute is too high!");
+	else if (gradeToExecute > 150)
+		throw Form::GradeTooLowException("Grade to execute is too low!");
+	if (gradeToSign < 1)
+		throw Form::GradeTooHighException("Grade to sign is too high!");
+	else if (gradeToSign > 150)
+		throw Form::GradeTooLowException("Grade to sign is too low!");
+	else
+		std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
 }
 
 Form::Form(const Form &src) : _name(src._name.empty() ? "Default" : src._name), _isSigned(src._isSigned), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)
@@ -44,16 +49,18 @@ Form::~Form()
 
 
 // ###################### EXCEPTIONS ###################################
+Form::GradeTooHighException::GradeTooHighException(const char *errorMessage) : _errorMessage(errorMessage) {}
+
 const char *Form::GradeTooHighException::what() const throw()
 {
-	std::cout << "The Form class has thrown an exception: " << std::endl << std::endl;
-	static const char* msg = RED "ERROR\n" RESET "Grade too HIGH";
-	return (msg);
+	return (_errorMessage);
 }
+
+Form::GradeTooLowException::GradeTooLowException(const char *errorMessage) : _errorMessage(errorMessage) {}
 
 const char *Form::GradeTooLowException::what() const throw()
 {
-	return ("Grade too LOW");
+	return (_errorMessage);
 }
 
 // ###################### GETTERS ######################################
@@ -89,7 +96,7 @@ void Form::beSigned(const Bureaucrat &bureaucrat, bool calledByBureaucrat)
 	if (this->_isSigned)
 	{
 		std::cout << YELLOW << "Form [" << this->getName() << "] is already signed." << RESET << std::endl;
-		return;
+		return ;
 	}
 	if (bureaucrat.getGrade() <= this->_gradeToSign)
 	{
@@ -102,7 +109,7 @@ void Form::beSigned(const Bureaucrat &bureaucrat, bool calledByBureaucrat)
 	else
 	{
 		if (calledByBureaucrat)
-			throw Form::GradeTooLowException();
+			throw Form::GradeTooLowException("Bureaucrat grade to sign is too low!");
 		else
 			std::cout << RED << "ERROR" << std::endl << RESET << "[" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because their grade is too low." << std::endl;
 	}
