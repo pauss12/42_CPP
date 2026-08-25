@@ -30,7 +30,7 @@ class Bureaucrat {
 		Bureaucrat();
 		Bureaucrat(const std::string name, int grade);
 		Bureaucrat(const Bureaucrat &orig);
-		Bureaucrat operator=(const Bureaucrat &src);
+		Bureaucrat& operator=(const Bureaucrat &src);
 		~Bureaucrat();
 
 		// Otras funciones a crear
