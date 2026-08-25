@@ -23,7 +23,7 @@ Form::Form(const std::string name, const int gradeToSign, const int gradeToExecu
 		std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
 }
 
-Form::Form(const Form &src) : _name(src._name.empty() ? "Default" : src._name), _isSigned(src._isSigned), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)
+Form::Form(const Form &src) : _name(src._name.empty() ? "Default" : src._name), _isSigned(false), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)
 {
 	std::cout << CYAN << "The copy constructor has been called, it has given to the Form the name: " << src.getName() << RESET << std::endl;
 }

@@ -56,7 +56,7 @@ int	Bureaucrat::getGrade() const
 void Bureaucrat::decrementGrade()
 {
 	if (this->_grade >= 150)
-		throw Bureaucrat::GradeTooLowException("Grade is too low!");
+		throw GradeTooLowException("Grade cannot be decremented because is already too low!");
 	this->_grade++;
 }
 
@@ -76,7 +76,7 @@ void Bureaucrat::signForm(Form &form)
 void Bureaucrat::incrementGrade()
 {
 	if (this->_grade <= 1)
-		throw Bureaucrat::GradeTooHighException("Grade is too high!");
+		throw GradeTooHighException("Grade cannot be incremented because is already too high!");
 	this->_grade--;
 }
 
@@ -85,7 +85,7 @@ Bureaucrat::GradeTooHighException::GradeTooHighException(const char *errorMessag
     : _errorMessage(errorMessage) {}
 
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
-    return _errorMessage;
+    return (_errorMessage);
 }
 
 // Low Exception Implementation
@@ -93,7 +93,7 @@ Bureaucrat::GradeTooLowException::GradeTooLowException(const char *errorMessage)
     : _errorMessage(errorMessage) {}
 
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
-    return _errorMessage;
+    return (_errorMessage);
 }
 
 // ###################### PRINTING ###################################
