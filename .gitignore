@@ -5,3 +5,4 @@ abstractAnimal
 *.d
 animal
 form
+.DS_Store
