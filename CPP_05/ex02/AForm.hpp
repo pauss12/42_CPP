@@ -34,7 +34,7 @@ class AForm
 
 	public:
 		AForm();
-		AForm(const std::string name, bool _isSigned ,const int gradeToSign, const int gradeToExecute);
+		AForm(const std::string name, const int gradeToSign, const int gradeToExecute);
 		AForm(const AForm &copy);
 		AForm &operator=(const AForm &copy);
 		virtual ~AForm();

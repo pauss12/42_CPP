@@ -7,7 +7,7 @@ AForm::AForm() : _name("Default"), _isSigned(false), _gradeToSign(150), _gradeTo
 }
 
 
-AForm::AForm(const std::string name, bool isSigned, const int gradeToSign, const int gradeToExecute) : _name(name.empty() ? "Default" : name), _isSigned(isSigned), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
+AForm::AForm(const std::string name, const int gradeToSign, const int gradeToExecute) : _name(name.empty() ? "Default" : name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
 	if (name.empty())
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "The form has been named as 'Default' " << std::endl;
