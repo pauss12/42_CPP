@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 
 // ###################### CONSTRUCTORES ###################################
-Bureaucrat::Bureaucrat() : _name(""), _grade(150)
+Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 {
 	std::cout << LIGHT_BLUE << "The default Bureaucrat has been created! " << RESET << std::endl;
 }
