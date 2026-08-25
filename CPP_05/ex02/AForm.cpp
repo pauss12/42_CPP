@@ -11,11 +11,16 @@ AForm::AForm(const std::string name, bool isSigned, const int gradeToSign, const
 {
 	if (name.empty())
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "The form has been named as 'Default' " << std::endl;
-	if (gradeToExecute < 1 || gradeToSign < 1)
-		throw AForm::GradeTooHighException();
-	else if (gradeToExecute > 150 || gradeToSign > 150)
-		throw AForm::GradeTooLowException();
-	std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
+	if (gradeToExecute < 1)
+		throw AForm::GradeTooHighException("Bureaucrat grade to execute is too high!");
+	else if (gradeToExecute > 150)
+		throw AForm::GradeTooLowException("Bureaucrat grade to execute is too low!");
+	else if (gradeToSign < 1)
+		throw AForm::GradeTooHighException("Bureaucrat grade to sign is too high!");
+	else if (gradeToSign > 150)
+		throw AForm::GradeTooLowException("Bureaucrat grade to sign is too low!");
+	else
+		std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
 }
 
 AForm::AForm(const AForm &src) : _name(src._name.empty() ? "Default" : src._name), _isSigned(src._isSigned), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)
@@ -44,21 +49,18 @@ AForm::~AForm()
 
 
 // ###################### EXCEPTIONS ###################################
+AForm::GradeTooHighException::GradeTooHighException(const char *errorMessage) : _errorMessage(errorMessage) {}
+
 const char *AForm::GradeTooHighException::what() const throw()
 {
-	std::cout << "The Form class has thrown an exception: " << std::endl << std::endl;
-	static const char* msg = RED "ERROR\n" RESET "Grade too HIGH";
-	return (msg);
+	return (_errorMessage);
 }
+
+AForm::GradeTooLowException::GradeTooLowException(const char *errorMessage) : _errorMessage(errorMessage) {}
 
 const char *AForm::GradeTooLowException::what() const throw()
 {
-	return ("Grade too LOW");
-}
-
-const char* AForm::FormNotSignedException::what() const throw()
-{
-	return ("Form is not signed");
+	return (_errorMessage);
 }
 
 // ###################### GETTERS ######################################
@@ -100,14 +102,17 @@ void AForm::beSigned(const Bureaucrat &bureaucrat, bool calledByBureaucrat)
 	{
 		this->_isSigned = true;
 		if (calledByBureaucrat)
+		{
+			throw AForm::GradeTooLowException("Bureaucrat grade is too low to sign the form!");
 			return ;
+		}
 		else
 			std::cout << GREEN << "[" << bureaucrat.getName() << "] signed [" << this->getName() << "]" << RESET << std::endl;
 	}
 	else
 	{
 		if (calledByBureaucrat)
-			throw AForm::GradeTooLowException();
+			throw AForm::GradeTooLowException("Bureaucrat grade is too low to sign the form!");
 		else
 			std::cout << RED << "ERROR" << std::endl << RESET << "[" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because their grade is too low." << std::endl;
 	}

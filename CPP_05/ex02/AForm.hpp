@@ -49,17 +49,22 @@ class AForm
 
 		class GradeTooHighException : public std::exception
 		{
-			virtual const char* what() const throw();
+			private:
+				const char* _errorMessage;
+
+			public:
+				GradeTooHighException(const char* errorMessage);
+				virtual const char* what() const throw();
 		};
 
 		class GradeTooLowException : public std::exception
 		{
-			virtual const char* what() const throw();
-		};
+			private:
+				const char* _errorMessage;
 
-		class FormNotSignedException : public std::exception
-		{
-			virtual const char* what() const throw();
+			public:
+				GradeTooLowException(const char* errorMessage);
+				virtual const char* what() const throw();
 		};
 };
 
