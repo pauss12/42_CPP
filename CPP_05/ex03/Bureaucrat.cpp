@@ -8,9 +8,9 @@ Bureaucrat::Bureaucrat() : _name(""), _grade(150)
 
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name.empty() ? "Default" : name), _grade(grade)
 {
-	if (grade >= 150)
+	if (grade > 150)
 		throw Bureaucrat::GradeTooLowException();
-	else if (grade <= 1)
+	else if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	if (name.empty())
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "Your Bureaucrat has been named as 'Default' " << std::endl;
@@ -22,7 +22,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &orig) : _name(orig._name), _grade(orig.
 	std::cout << LIGHT_BLUE << "Bureaucrat has been created with the the copy constructor called " << RESET << std::endl;
 }
 
-Bureaucrat Bureaucrat::operator=(const Bureaucrat &src)
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &src)
 {
 	if (this != &src)
 	{
