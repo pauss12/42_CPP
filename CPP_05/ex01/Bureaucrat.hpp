@@ -35,7 +35,7 @@ class Bureaucrat {
 		Bureaucrat();
 		Bureaucrat(const std::string name, int grade);
 		Bureaucrat(const Bureaucrat &orig);
-		Bureaucrat operator=(const Bureaucrat &src);
+		Bureaucrat& operator=(const Bureaucrat &src);
 		~Bureaucrat();
 
 		// Otras funciones a crear
@@ -46,16 +46,24 @@ class Bureaucrat {
 		void signForm(Form &form);
 
 	// Excepciones a crear ---
-	class	GradeTooHighException : public std::exception
+	class GradeTooHighException : public std::exception
 	{
+		private:
+			const char* _errorMessage;
+		
 		public:
-			virtual const char *what() const throw();
+			GradeTooHighException(const char *errorMessage);
+			virtual const char* what() const throw();
 	};
 
-	class	GradeTooLowException : public std::exception
+	class GradeTooLowException : public std::exception
 	{
+		private:
+			const char* _errorMessage;
+		
 		public:
-			virtual const char *what() const throw();
+			GradeTooLowException(const char *errorMessage);
+			virtual const char* what() const throw();
 	};
 
 };
