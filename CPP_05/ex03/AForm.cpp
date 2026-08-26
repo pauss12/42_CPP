@@ -11,15 +11,16 @@ AForm::AForm(const std::string name, const int gradeToSign, const int gradeToExe
 {
 	if (name.empty())
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "The form has been named as 'Default' " << std::endl;
-	if (gradeToExecute < 1)
-		throw AForm::GradeTooHighException("Bureaucrat grade to execute is too high!");
+	else if (gradeToExecute < 1)
+		throw AForm::GradeTooHighException("Cannot create Form: Bureaucrat grade to execute is too high!");
 	else if (gradeToExecute > 150)
-		throw AForm::GradeTooLowException("Bureaucrat grade to execute is too low!");
+		throw AForm::GradeTooLowException("Cannot create Form: Bureaucrat grade to execute is too low!");
 	else if (gradeToSign < 1)
-		throw AForm::GradeTooHighException("Bureaucrat grade to sign is too high!");
+		throw AForm::GradeTooHighException("Cannot create Form: Bureaucrat grade to sign is too high!");
 	else if (gradeToSign > 150)
-		throw AForm::GradeTooLowException("Bureaucrat grade to sign is too low!");
-	std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
+		throw AForm::GradeTooLowException("Cannot create Form: Bureaucrat grade to sign is too low!");
+	else
+		std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
 }
 
 AForm::AForm(const AForm &src) : _name(src._name.empty() ? "Default" : src._name), _isSigned(false), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)

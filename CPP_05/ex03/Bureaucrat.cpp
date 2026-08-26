@@ -8,13 +8,14 @@ Bureaucrat::Bureaucrat() : _name(""), _grade(150)
 
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name.empty() ? "Default" : name), _grade(grade)
 {
-	if (grade > 150)
-		throw GradeTooLowException("Cannot create Bureaucrat grade is too low!");
-	else if (grade < 1)
-		throw GradeTooHighException("Cannot create Bureaucrat grade is too high!");
-	if (name.empty())
+	if (name.empty() || this->_name.compare("Default") == 0)
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "Your Bureaucrat has been named as 'Default' " << std::endl;
-	std::cout << BLUE << "Bureaucrat with name [ " << this->getName() << " ] and Grade " << this->getGrade() <<  " has been created" << RESET << std::endl;
+	else if (grade > 150)
+		throw GradeTooLowException("Bureaucrat cannot be created because grade is too low!");
+	else if (grade < 1)
+		throw GradeTooHighException("Bureaucrat cannot be created because grade is too high!");
+	else
+		std::cout << BLUE << "Bureaucrat with name [ " << this->getName() << " ] and Grade " << this->getGrade() <<  " has been created" << RESET << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &orig) : _name(orig._name), _grade(orig._grade)

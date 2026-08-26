@@ -11,14 +11,14 @@ Form::Form(const std::string name, const int gradeToSign, const int gradeToExecu
 {
 	if (name.empty())
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "The form has been named as 'Default' " << std::endl;
-	if (gradeToExecute < 1)
-		throw Form::GradeTooHighException("Grade to execute is too high!");
+	else if (gradeToExecute < 1)
+		throw Form::GradeTooHighException("Cannot create Form: Bureaucrat grade to execute is too high!");
 	else if (gradeToExecute > 150)
-		throw Form::GradeTooLowException("Grade to execute is too low!");
-	if (gradeToSign < 1)
-		throw Form::GradeTooHighException("Grade to sign is too high!");
+		throw Form::GradeTooLowException("Cannot create Form: Bureaucrat grade to execute is too low!");
+	else if (gradeToSign < 1)
+		throw Form::GradeTooHighException("Cannot create Form: Bureaucrat grade to sign is too high!");
 	else if (gradeToSign > 150)
-		throw Form::GradeTooLowException("Grade to sign is too low!");
+		throw Form::GradeTooLowException("Cannot create Form: Bureaucrat grade to sign is too low!");
 	else
 		std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
 }

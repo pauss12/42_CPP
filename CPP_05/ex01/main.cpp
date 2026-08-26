@@ -45,6 +45,9 @@ int main(void)
 		std::cout << std::endl << "Before signing:" << std::endl;
 		std::cout << f1 << std::endl;
 
+		std::cout << std::endl << "Bureaucrat signing the form:" << std::endl;
+		std::cout << b1 << std::endl;
+
 		f1.beSigned(b1);
 		std::cout << std::endl << "After signing:" << std::endl;
 		std::cout << f1 << std::endl;
@@ -61,6 +64,8 @@ int main(void)
 		std::cout << std::endl << "Before signing:" << std::endl;
 		std::cout << f5 << std::endl;
 
+		std::cout << std::endl << "Bureaucrat signing the form:" << std::endl;
+		std::cout << b3 << std::endl;
 		f5.beSigned(b3);
 
 		std::cout << std::endl << "After signing:" << std::endl;
@@ -70,7 +75,7 @@ int main(void)
 		std::cerr << e.what() << std::endl;
 	}
 
-	std::cout << std::endl << YELLOW << "------------ TEST 4: BUREAUCRAT SIGNING FORM WITH INSUFFICIENT GRADE --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 5: BUREAUCRAT SIGNING FORM WITH INSUFFICIENT GRADE --------------------- " << RESET << std::endl;
 	Bureaucrat b2("John", 6);
 	Form f6("Form4", 5, 5);
 	try {
@@ -78,6 +83,8 @@ int main(void)
 		std::cout << std::endl << "Before signing:" << std::endl;
 		std::cout << f6 << std::endl;
 
+		std::cout << std::endl << "Bureaucrat signing the form:" << std::endl;
+		std::cout << b2 << std::endl;
 		b2.signForm(f6);
 
 		std::cout << std::endl << "After signing:" << std::endl;
@@ -87,13 +94,15 @@ int main(void)
 		std::cerr << e.what() << std::endl;
 	}
 
-	std::cout << std::endl << YELLOW << "------------ TEST 5: BUREAUCRAT SIGNING FORM WITH SUFFICIENT GRADE --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 6: BUREAUCRAT SIGNING FORM WITH SUFFICIENT GRADE --------------------- " << RESET << std::endl;
 	Form f7("Form4", 6, 5);
 	try {
 
 		std::cout << std::endl << "Before signing:" << std::endl;
 		std::cout << f7 << std::endl;
 
+		std::cout << std::endl << "Bureaucrat signing the form:" << std::endl;
+		std::cout << b1 << std::endl;
 		b1.signForm(f7);
 
 		std::cout << std::endl << "After signing:" << std::endl;
@@ -104,16 +113,21 @@ int main(void)
 	}
 
 	Form f8("Form5", 6, 5);
-	std::cout << std::endl << YELLOW << "------------ TEST 6: FORM CALLING beSigned() --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 7: FORM CALLING beSigned() --------------------- " << RESET << std::endl;
 	try {
+
+		std::cout << std::endl << "Bureaucrat signing the form:" << std::endl;
+		std::cout << b1 << std::endl;
 		f8.beSigned(b1);
 	} catch (const std::exception &e) {
 		std::cerr << e.what() << std::endl;
 	}
 
 	Form f9("Form6", 6, 5);
-	std::cout << std::endl << YELLOW << "------------ TEST 7: BUREAUCRAT CALLING signForm() --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 8: BUREAUCRAT CALLING signForm() --------------------- " << RESET << std::endl;
 	try {
+		std::cout << std::endl << "Bureaucrat signing the form:" << std::endl;
+		std::cout << b1 << std::endl;
 		b1.signForm(f9);
 	} catch (const std::exception &e) {
 		std::cerr << e.what() << std::endl;
@@ -123,7 +137,14 @@ int main(void)
 	try {
 		std::cout << std::endl << "Before signing:" << std::endl;
 		std::cout << f9 << std::endl;
+
+		std::cout << std::endl << "Bureaucrat signing the form:" << std::endl;
+		std::cout << b1 << std::endl;
 		b1.signForm(f9);
+
+		std::cout << std::endl << "After signing:" << std::endl;
+		std::cout << f9 << std::endl;
+
 	} catch (const std::exception &e) {
 		std::cerr << e.what() << std::endl;
 	}
@@ -133,9 +154,13 @@ int main(void)
 		Form f10("", 6, 5);
 		std::cout << std::endl << "Before signing:" << std::endl;
 		std::cout << f10 << std::endl;
+
+		std::cout << std::endl << "Bureaucrat signing the form:" << std::endl;
+		std::cout << b1 << std::endl;
 		b1.signForm(f10);
 
 		std::cout << std::endl << "After signing:" << std::endl;
+		std::cout << f10 << std::endl;
 
 	} catch (const std::exception &e) {
 		std::cerr << e.what() << std::endl;
