@@ -9,9 +9,9 @@ Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name.empty() ? "Default" : name), _grade(grade)
 {
 	if (grade > 150)
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooLowException("Bureaucrat grade is too low!");
 	else if (grade < 1)
-		throw Bureaucrat::GradeTooHighException();
+		throw Bureaucrat::GradeTooHighException("Bureaucrat grade is too high!");
 	if (name.empty() || this->_name.compare("Default") == 0)
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "Your Bureaucrat has been named as 'Default' " << std::endl;
 
@@ -57,28 +57,32 @@ int	Bureaucrat::getGrade() const
 void Bureaucrat::decrementGrade()
 {
 	if (this->_grade >= 150)
-		throw Bureaucrat::GradeTooLowException();
+		throw GradeTooLowException("Grade cannot be decremented because is already too low!");
 	this->_grade++;
 }
 
 void Bureaucrat::incrementGrade()
 {
 	if (this->_grade <= 1)
-		throw Bureaucrat::GradeTooHighException();
+		throw GradeTooHighException("Grade cannot be incremented because is already too high!");
 	this->_grade--;
 }
 
 // ###################### EXCEPCIONES ###################################
+Bureaucrat::GradeTooHighException::GradeTooHighException(const char *errorMessage) 
+    : _errorMessage(errorMessage) {}
+
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	static const char* msg = RED "ERROR" RESET " Grade too HIGH";
-	return (msg);
+	return (_errorMessage);
 }
+
+Bureaucrat::GradeTooLowException::GradeTooLowException(const char *errorMessage) 
+    : _errorMessage(errorMessage) {}
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	static const char* msg = RED "ERROR" RESET " Grade too LOW";
-	return (msg);
+	return (_errorMessage);
 }
 
 // ###################### PRINTING ###################################

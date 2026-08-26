@@ -64,12 +64,17 @@ void Bureaucrat::signForm(AForm &form)
 {
 	try
 	{
-		form.beSigned(*this, true);
-		std::cout << GREEN << this->getName() << " signed " << form.getName() << RESET << std::endl;
+		if (form.getIsSigned())
+		{
+			std::cout << "[" << this->getName() << "] cannot sign " << form.getName() << " because it is already signed." << std::endl;
+			return ;
+		}
+		form.beSigned(*this);
+		std::cout << GREEN << "[" << this->getName() << "] signed " << form.getName() << RESET << std::endl;
 	}
 	catch (std::exception &e)
 	{
-		std::cout << RED << "ERROR" << RESET << std::endl << this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << RESET << std::endl;
+		std::cout << "[" << this->getName() << "] couldn't sign " << form.getName() << " because " << e.what() << RESET << std::endl;
 	}
 }
 

@@ -45,7 +45,7 @@ int main(void)
 		std::cout << std::endl << "Before signing:" << std::endl;
 		std::cout << f1 << std::endl;
 
-		f1.beSigned(b1, false);
+		f1.beSigned(b1);
 		std::cout << std::endl << "After signing:" << std::endl;
 		std::cout << f1 << std::endl;
 
@@ -61,7 +61,7 @@ int main(void)
 		std::cout << std::endl << "Before signing:" << std::endl;
 		std::cout << f5 << std::endl;
 
-		f5.beSigned(b3, false);
+		f5.beSigned(b3);
 
 		std::cout << std::endl << "After signing:" << std::endl;
 		std::cout << f5 << std::endl;
@@ -98,6 +98,44 @@ int main(void)
 
 		std::cout << std::endl << "After signing:" << std::endl;
 		std::cout << f7 << std::endl;
+
+	} catch (const std::exception &e) {
+		std::cerr << e.what() << std::endl;
+	}
+
+	Form f8("Form5", 6, 5);
+	std::cout << std::endl << YELLOW << "------------ TEST 6: FORM CALLING beSigned() --------------------- " << RESET << std::endl;
+	try {
+		f8.beSigned(b1);
+	} catch (const std::exception &e) {
+		std::cerr << e.what() << std::endl;
+	}
+
+	Form f9("Form6", 6, 5);
+	std::cout << std::endl << YELLOW << "------------ TEST 7: BUREAUCRAT CALLING signForm() --------------------- " << RESET << std::endl;
+	try {
+		b1.signForm(f9);
+	} catch (const std::exception &e) {
+		std::cerr << e.what() << std::endl;
+	}
+
+	std::cout << std::endl << YELLOW << "------------ TEST 9: TRYING TO SIGN A SIGNED FORM --------------------- " << RESET << std::endl;
+	try {
+		std::cout << std::endl << "Before signing:" << std::endl;
+		std::cout << f9 << std::endl;
+		b1.signForm(f9);
+	} catch (const std::exception &e) {
+		std::cerr << e.what() << std::endl;
+	}
+
+	std::cout << std::endl << YELLOW << "------------ TEST 10: TRYING TO SIGN A NAMELESS FORM --------------------- " << RESET << std::endl;
+	try {
+		Form f10("", 6, 5);
+		std::cout << std::endl << "Before signing:" << std::endl;
+		std::cout << f10 << std::endl;
+		b1.signForm(f10);
+
+		std::cout << std::endl << "After signing:" << std::endl;
 
 	} catch (const std::exception &e) {
 		std::cerr << e.what() << std::endl;

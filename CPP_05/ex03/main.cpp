@@ -20,10 +20,14 @@ int main(void)
 	std::cout << *rrf << std::endl;
 
 	std::cout << std::endl << YELLOW << "------------ TESTING EXECUTION FORM BEFORE SIGNING --------------------- " << RESET << std::endl;
-	rrf->execute(b1);
+	try {
+		rrf->execute(b1);
+	} catch (const std::exception &e) {
+		std::cout << RED << "Execution failed: " << e.what() << RESET << std::endl;
+	}
 
 	std::cout << std::endl << YELLOW << "------------ TESTING SIGNING FORM --------------------- " << RESET << std::endl;
-	rrf->beSigned(b1, false);
+	rrf->beSigned(b1);
 
 	std::cout << std::endl << YELLOW << "------------ SHOWING FORM INFORMATION AFTER SIGNING --------------------- " << RESET << std::endl;
 	std::cout << *rrf << std::endl;

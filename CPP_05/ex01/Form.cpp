@@ -84,35 +84,12 @@ int Form::getGradeToExecute() const
 	return (this->_gradeToExecute);
 }
 
-
-//  ###################### FUNCTION BE SIGNED ##########################
-void Form::beSigned(const Bureaucrat &bureaucrat, bool calledByBureaucrat)
+// ####################### FUNCTION BE SIGNED ##########################
+void Form::beSigned(const Bureaucrat &bureaucrat)
 {
-	if (this->_name.empty())
-	{
-		std::cout << RED << "ERROR" << RESET << " [" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because it has no name." << std::endl;
-		return ;
-	}
-	if (this->_isSigned)
-	{
-		std::cout << YELLOW << "Form [" << this->getName() << "] is already signed." << RESET << std::endl;
-		return ;
-	}
-	if (bureaucrat.getGrade() <= this->_gradeToSign)
-	{
-		this->_isSigned = true;
-		if (calledByBureaucrat)
-			return ;
-		else
-			std::cout << GREEN << "[" << bureaucrat.getName() << "] signed [" << this->getName() << "]" << RESET << std::endl;
-	}
-	else
-	{
-		if (calledByBureaucrat)
-			throw Form::GradeTooLowException("Bureaucrat grade to sign is too low!");
-		else
-			std::cout << RED << "ERROR" << std::endl << RESET << "[" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because their grade is too low." << std::endl;
-	}
+	if (bureaucrat.getGrade() > this->_gradeToSign)
+		throw Form::GradeTooLowException("Bureaucrat grade to sign is too low!");
+	this->_isSigned = true;
 }
 
 std::ostream& operator<<(std::ostream& os, Form const& form)
