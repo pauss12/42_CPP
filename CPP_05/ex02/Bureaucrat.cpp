@@ -8,13 +8,14 @@ Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name.empty() ? "Default" : name), _grade(grade)
 {
-	if (grade > 150)
-		throw Bureaucrat::GradeTooLowException("Bureaucrat grade is too low!");
-	else if (grade < 1)
-		throw Bureaucrat::GradeTooHighException("Bureaucrat grade is too high!");
-	if (name.empty())
+	if (name.empty() || this->_name.compare("Default") == 0)
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "Your Bureaucrat has been named as 'Default' " << std::endl;
-	std::cout << BLUE << "Bureaucrat with name [ " << this->getName() << " ] and Grade " << this->getGrade() <<  " has been created" << RESET << std::endl;
+	else if (grade > 150)
+		throw Bureaucrat::GradeTooLowException("Bureaucrat cannot be created because grade is too low!");
+	else if (grade < 1)
+		throw Bureaucrat::GradeTooHighException("Bureaucrat cannot be created because grade is too high!");
+	else
+		std::cout << BLUE << "Bureaucrat with name [ " << this->getName() << " ] and Grade " << this->getGrade() <<  " has been created" << RESET << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &orig) : _name(orig._name), _grade(orig._grade)
@@ -64,12 +65,17 @@ void Bureaucrat::signForm(AForm &form)
 {
 	try
 	{
-		form.beSigned(*this, true);
-		std::cout << GREEN << this->getName() << " signed " << form.getName() << RESET << std::endl;
+		if (form.getIsSigned())
+		{
+			std::cout << "[" << this->getName() << "] cannot sign " << form.getName() << " because it is already signed." << std::endl;
+			return ;
+		}
+		form.beSigned(*this);
+		std::cout << GREEN << "[" << this->getName() << "] signed " << form.getName() << RESET << std::endl;
 	}
 	catch (std::exception &e)
 	{
-		std::cout << RED << "ERROR" << RESET << std::endl << this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << RESET << std::endl;
+		std::cout << "[" << this->getName() << "] couldn't sign " << form.getName() << " because " << e.what() << RESET << std::endl;
 	}
 }
 

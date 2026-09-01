@@ -11,14 +11,14 @@ Form::Form(const std::string name, const int gradeToSign, const int gradeToExecu
 {
 	if (name.empty())
 		std::cout << ORANGE << "WARNING" << RESET << std::endl << "The form has been named as 'Default' " << std::endl;
-	if (gradeToExecute < 1)
-		throw Form::GradeTooHighException("Grade to execute is too high!");
+	else if (gradeToExecute < 1)
+		throw Form::GradeTooHighException("Cannot create Form: Bureaucrat grade to execute is too high!");
 	else if (gradeToExecute > 150)
-		throw Form::GradeTooLowException("Grade to execute is too low!");
-	if (gradeToSign < 1)
-		throw Form::GradeTooHighException("Grade to sign is too high!");
+		throw Form::GradeTooLowException("Cannot create Form: Bureaucrat grade to execute is too low!");
+	else if (gradeToSign < 1)
+		throw Form::GradeTooHighException("Cannot create Form: Bureaucrat grade to sign is too high!");
 	else if (gradeToSign > 150)
-		throw Form::GradeTooLowException("Grade to sign is too low!");
+		throw Form::GradeTooLowException("Cannot create Form: Bureaucrat grade to sign is too low!");
 	else
 		std::cout << LIGHT_BLUE << "The parameter Form with [ " << this->getName() << " ] as name, has been created!" << RESET << std::endl;
 }
@@ -84,35 +84,12 @@ int Form::getGradeToExecute() const
 	return (this->_gradeToExecute);
 }
 
-
-//  ###################### FUNCTION BE SIGNED ##########################
-void Form::beSigned(const Bureaucrat &bureaucrat, bool calledByBureaucrat)
+// ####################### FUNCTION BE SIGNED ##########################
+void Form::beSigned(const Bureaucrat &bureaucrat)
 {
-	if (this->_name.empty())
-	{
-		std::cout << RED << "ERROR" << RESET << " [" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because it has no name." << std::endl;
-		return ;
-	}
-	if (this->_isSigned)
-	{
-		std::cout << YELLOW << "Form [" << this->getName() << "] is already signed." << RESET << std::endl;
-		return ;
-	}
-	if (bureaucrat.getGrade() <= this->_gradeToSign)
-	{
-		this->_isSigned = true;
-		if (calledByBureaucrat)
-			return ;
-		else
-			std::cout << GREEN << "[" << bureaucrat.getName() << "] signed [" << this->getName() << "]" << RESET << std::endl;
-	}
-	else
-	{
-		if (calledByBureaucrat)
-			throw Form::GradeTooLowException("Bureaucrat grade to sign is too low!");
-		else
-			std::cout << RED << "ERROR" << std::endl << RESET << "[" << bureaucrat.getName() << "] cannot sign [" << this->getName() << "] because their grade is too low." << std::endl;
-	}
+	if (bureaucrat.getGrade() > this->_gradeToSign)
+		throw Form::GradeTooLowException("Bureaucrat grade to sign is too low!");
+	this->_isSigned = true;
 }
 
 std::ostream& operator<<(std::ostream& os, Form const& form)

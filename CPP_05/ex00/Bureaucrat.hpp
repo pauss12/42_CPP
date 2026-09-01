@@ -33,25 +33,30 @@ class Bureaucrat {
 		Bureaucrat& operator=(const Bureaucrat &src);
 		~Bureaucrat();
 
-		// Otras funciones a crear
 		int getGrade() const;
 		std::string getName() const;
 		void incrementGrade();
 		void decrementGrade();
 
-	// Excepciones a crear ---
-	class	GradeTooHighException : public std::exception
+	class GradeTooHighException : public std::exception
 	{
+		private:
+			const char* _errorMessage;
+		
 		public:
-			virtual const char *what() const throw();
+			GradeTooHighException(const char *errorMessage);
+			virtual const char* what() const throw();
 	};
 
-	class	GradeTooLowException : public std::exception
+	class GradeTooLowException : public std::exception
 	{
+		private:
+			const char* _errorMessage;
+		
 		public:
-			virtual const char *what() const throw();
+			GradeTooLowException(const char *errorMessage);
+			virtual const char* what() const throw();
 	};
-
 };
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &Bureaucrat);

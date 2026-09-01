@@ -28,23 +28,15 @@ RobotomyRequestForm::~RobotomyRequestForm()
 void RobotomyRequestForm::execute(const Bureaucrat &executor) const
 {
 	if (executor.getGrade() > this->getGradeToExecute())
-	{
 		throw AForm::GradeTooLowException("The bureaucrat's grade is too low to execute the form");
-		return ;
-	}
 	else if (!this->getIsSigned())
-	{
 		throw AForm::GradeTooLowException("The form is not signed yet");
-		return ;
-	}
-
-	std::cout << "** Making Drilling Noises **" << std::endl;
-	if (rand() % 2 == 0)
-	{
-		std::cout << GREEN << "[ " << this->_target << " ] has been robotomized successfully" << RESET << std::endl;
-	}
 	else
 	{
-		std::cout << RED << "[ " << this->_target << " ] has failed to robotomize" << RESET << std::endl;
+		std::cout << "** Making Drilling Noises **" << std::endl;
+		if (rand() % 2 == 0)
+			std::cout << GREEN << "[ " << this->_target << " ] has been robotomized successfully" << RESET << std::endl;
+		else
+			std::cout << RED << "[ " << this->_target << " ] has failed to robotomize" << RESET << std::endl;
 	}
 }

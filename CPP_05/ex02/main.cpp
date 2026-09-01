@@ -22,7 +22,7 @@ int main(void)
 		std::cerr << e.what() << std::endl;
 	}
 
-	std::cout << std::endl << YELLOW << "------------ TEST 1: TRYING TO INSTANTIATE A FORM --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 1: TRYING TO INSTANTIATE A ABSTRACT FORM (AFORM)--------------------- " << RESET << std::endl;
 	std::cout << GRAY << "It has comments because Abstract Form Class cannot be instantiated " << RESET << std::endl;
 	//AForm f1("Form1", false, 5, 10);
 

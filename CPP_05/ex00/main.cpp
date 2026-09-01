@@ -67,7 +67,7 @@ int main(void)
 		std::cerr << e.what() << std::endl;
 	}
 
-	std::cout << std::endl << YELLOW << "------------ TEST 7: MÚLTIPLES INCREMENTOS HASTA LÍMITE --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 7: MULTIPLES INCREMENTS UNTIL LIMIT --------------------- " << RESET << std::endl;
 	Bureaucrat b10("Max", 5);
 	std::cout << b10 << std::endl;
 	for (int i = 0; i < 4; i++) 
@@ -82,7 +82,7 @@ int main(void)
 		std::cerr << "Expected: " << e.what() << std::endl;
 	}
 
-	std::cout << std::endl << YELLOW << "------------ TEST 8: MÚLTIPLES DECREMENTOS HASTA LÍMITE --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 8: MULTIPLES DECREMMENTS UNTIL LIMIT --------------------- " << RESET << std::endl;
 	try {
 		Bureaucrat b11("Min", 146);
 		std::cout << b11 << std::endl;
@@ -97,23 +97,24 @@ int main(void)
 	}
 
 	std::cout << std::endl << YELLOW << "------------ TEST 9: ASSIGN + MODIFY ORIGINAL --------------------- " << RESET << std::endl;
-	Bureaucrat b12("Original", 10);
+	Bureaucrat b12("BUROCRATA", 10);
 	Bureaucrat b13 = b12;  // Copy constructor
-	std::cout << "Original: " << b12 << std::endl;
+	std::cout << std::endl << "Original: " << b12 << std::endl;
 	std::cout << "Copia:    " << b13 << std::endl;
 	b13.incrementGrade();  // Modificar copia NO afecta original
-	std::cout << "Después de modificar copia:" << std::endl;
+
+	std::cout << "AFTER MODIFYING COPY:" << std::endl << std::endl;
 	std::cout << "Original: " << b12 << std::endl;
 	std::cout << "Copia:    " << b13 << std::endl;
 
-	std::cout << std::endl << YELLOW << "------------ TEST 10: CAPTURA EXCEPCIONES ESPECÍFICAS --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 10: CAPTURE SPECIFIC EXCEPTIONS --------------------- " << RESET << std::endl;
 	// Test que diferencia entre las dos excepciones
 	try {
 		Bureaucrat high("TooHigh", 0);
 	} catch (Bureaucrat::GradeTooHighException &e) {
-		std::cerr << "✓ GradeTooHighException capturada: " << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	} catch (Bureaucrat::GradeTooLowException &e) {
-		std::cerr << "✗ Debió ser GradeTooHighException" << std::endl;
+		std::cout << e.what() << std::endl;
 	} catch (std::exception &e) {
 		std::cerr << "✗ Excepción genérica inesperada" << std::endl;
 	}
@@ -121,9 +122,9 @@ int main(void)
 	try {
 		Bureaucrat low("TooLow", 151);
 	} catch (Bureaucrat::GradeTooLowException &e) {
-		std::cerr << "✓ GradeTooLowException capturada: " << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	} catch (Bureaucrat::GradeTooHighException &e) {
-		std::cerr << "✗ Debió ser GradeTooLowException" << std::endl;
+		std::cout << e.what() << std::endl;
 	} catch (std::exception &e) {
 		std::cerr << "✗ Excepción genérica inesperada" << std::endl;
 	}
@@ -136,7 +137,7 @@ int main(void)
 	Bureaucrat b15("PostScope", 75);
 	std::cout << "Nuevo después del scope: " << b15 << std::endl;
 
-	std::cout << std::endl << YELLOW << "------------ TEST 12: STRESS TEST (100 INC/DEC) --------------------- " << RESET << std::endl;
+	std::cout << std::endl << YELLOW << "------------ TEST 12: STRESS TEST (50 INC/DEC) --------------------- " << RESET << std::endl;
 	Bureaucrat b16("Stress", 75);
 	for (int i = 0; i < 50; i++) {
 		b16.incrementGrade();

@@ -28,17 +28,10 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 {
 	if (executor.getGrade() > this->getGradeToExecute())
-	{
 		throw AForm::GradeTooLowException("The bureaucrat's grade is too low to execute the form");
-		return ;
-	}
 	else if (!this->getIsSigned())
-	{
 		throw AForm::GradeTooLowException("The form is not signed yet");
-		return ;
-	}
 
-	// Tiene que crear un fichero con un arbol ASCII
 	std::ofstream outfile((this->_target + "_shrubbery").c_str());
 
 	if (!outfile.is_open()) {
@@ -46,10 +39,10 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 		return;
 	}
 
-	int altura = 5;
+	int height = 5;
 
-	for (int i = 0; i < altura; ++i) {
-		for (int j = 0; j < altura - i; ++j) {
+	for (int i = 0; i < height; ++i) {
+		for (int j = 0; j < height - i; ++j) {
 			outfile << " ";
 		}
 		for (int j = 0; j < i * 2 + 1; ++j) {
@@ -59,7 +52,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 	}
 
 	for (int i = 0; i < 2; ++i) {
-		for (int j = 0; j < altura - 1; ++j) {
+		for (int j = 0; j < height - 1; ++j) {
 			outfile << " ";
 		}
 		outfile << "|||" << std::endl;
