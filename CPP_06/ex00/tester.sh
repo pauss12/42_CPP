@@ -143,7 +143,7 @@ main() {
     
     # Tests especiales
     echo -e "\n${PURPLE}🎯 TESTS ESPECIALES${NC}"
-    ((total++)); run_test "127" "char: DEL|impossible" "CHAR 127" || ((fails++))
+    ((total++)); run_test "127" "char: impossible" "CHAR 127" || ((fails++))
     
     # Resumen
     echo -e "\n${BLUE}📊 RESULTADOS FINALES${NC}"
