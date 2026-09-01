@@ -1,8 +1,19 @@
-#include <iostream>
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
+
+Base* generate(void)
+{
+    int random = rand() % 3;
+
+    if (random == 0)
+        return new A();
+    else if (random == 1)
+        return new B();
+    else
+        return new C();
+}
 
 void identify(Base* p)
 {
@@ -16,11 +27,11 @@ void identify(Base* p)
 		std::cout << "Unknown" << std::endl;
 }
 
-void identify(const Base& base)
+void identify(Base& base)
 {
 	try
 	{
-		const A& a = dynamic_cast<const A&>(base);
+		A& a = dynamic_cast<A&>(base);
 		(void)a;
 		std::cout << "A" << std::endl;
 		return ;
@@ -28,7 +39,7 @@ void identify(const Base& base)
 	catch (std::exception& e) {}
 	try
 	{
-		const B& b = dynamic_cast<const B&>(base);
+		B& b = dynamic_cast<B&>(base);
 		(void)b;
 		std::cout << "B" << std::endl;
 		return ;
@@ -36,7 +47,7 @@ void identify(const Base& base)
 	catch (std::exception& e) {}
 	try
 	{
-		const C& c = dynamic_cast<const C&>(base);
+		C& c = dynamic_cast<C&>(base);
 		(void)c;
 		std::cout << "C" << std::endl;
 		return ;
@@ -47,20 +58,10 @@ void identify(const Base& base)
 
 int main()
 {
-	// Que aleatoriamente saque una instancia de A, B o C
-	Base* base;
-	int random;
-
 	srand(time(0));
-	random = rand() % 3;
-	if (random == 0)
-		base = new A();
-	else if (random == 1)
-		base = new B();
-	else
-		base = new C();
 
-	// How to idenfify each of then
+	Base* base = generate();
+	
 	std::cout << "Identifying base pointer:" << std::endl;
 	identify(base);
 

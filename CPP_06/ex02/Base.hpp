@@ -12,4 +12,9 @@ class Base
 		virtual ~Base();
 };
 
+// Required functions -----------------
+Base *generate(void);
+void identify(Base* p);
+void identify(Base& p);
+
 #endif
