@@ -1,4 +1,4 @@
-#include "Serializer.hpp"
+# include "Serializer.hpp"
 
 Serializer::Serializer() 
 {
@@ -23,6 +23,9 @@ Serializer::~Serializer()
 {
 	std::cout << PURPLE << "Serializer destructor has been called " << RESET << std::endl;
 }
+
+//! El enunciado te pide métodos estáticos; static uintptr_t serialize(...) y static Data* deserialize(...). 
+//! En C++, los métodos estáticos no pueden ser virtuales, por eso no puede ser clase abstracta, ademas de no se necesita una clase base.
 
 uintptr_t Serializer::serialize(Data* ptr)
 {
