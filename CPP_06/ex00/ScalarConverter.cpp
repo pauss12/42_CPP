@@ -1,4 +1,5 @@
 #include "ScalarConverter.hpp"
+#include <unistd.h>
 
 // FUNCTIONS DUE TO ORTHODOX CANNONICAL FORM --------------------------------------------------------------------
 ScalarConverter::ScalarConverter()
@@ -112,7 +113,7 @@ void ScalarConverter::convertInt(const std::string& literal, int type)
 	if (type == CHAR)
 	{
 		std::cout << "int: impossible" << std::endl;
-		return;
+		return ;
 	}
 
 	double val = std::atof(literal.c_str());
@@ -123,7 +124,7 @@ void ScalarConverter::convertInt(const std::string& literal, int type)
         return;
     }
 
-	if (type == INT)
+	if (type == INT && !isatty(STDOUT_FILENO))
 		std::cout << "int: " << static_cast<int>(val) << " ";
 	else
 		std::cout << "int: " << static_cast<int>(val) << std::endl;

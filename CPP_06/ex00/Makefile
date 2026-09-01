@@ -12,7 +12,7 @@
 
 NAME = conversion
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP -fsanitize=address -g3
 OBJ_DIR = obj
 
 FILES = ScalarConverter.cpp main.cpp
