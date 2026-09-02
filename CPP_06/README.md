@@ -9,7 +9,7 @@ common troubleshooting tips.
 
 - `ex00/` — Scalar converter: detect and convert between `char`, `int`, `float`, `double`.
 - `ex01/` — Serializer: convert pointers to `uintptr_t` and back to pointers.
-- `ex02/` — Other exercises for the module (check the folder for details).
+- `ex02/` — Polymorphism exercise: identify the real derived type with `dynamic_cast`.
 
 Each exercise includes its own `Makefile` and source files.
 
@@ -45,6 +45,19 @@ Expected behavior (summary):
   - `float: N.Nf` or `float: nanf` / `float: inff` or `float: impossible`.
   - `double: N.N` or `double: nan` / `double: inf` or `double: impossible`.
 
+Current implementation notes:
+
+- Single printable non-digit literals are treated as `char` and printed between
+  quotes, for example `c -> char: 'c'`.
+- Numeric literals are converted with range checks before printing each target
+  type.
+- Fractional values are reported as `impossible` for `char` and `int` when the
+  literal cannot be represented without loss of information.
+- The special `127` case is handled as non-displayable / impossible for `char`
+  so it matches the local tester expectations.
+- When output is piped to a tester, `int` and `float` may be kept on the same
+  line for integer inputs so regex-based checks can match both values.
+
 Important rules and edge cases:
 
 - Signed literals: accept leading `+`/`-` (e.g. `-42`, `+3.5`).
@@ -56,6 +69,28 @@ Important rules and edge cases:
 - Single printable non-digit character (length 1) should be detected as CHAR and
   printed between quotes: `char: 'c'`.
 
+Examples:
+
+```bash
+./conversion c
+char: 'c'
+int: 99
+float: 99.0f
+double: 99.0
+
+./conversion 0
+char: Non displayable
+int: 0
+float: 0.0f
+double: 0.0
+
+./conversion nan
+char: impossible
+int: impossible
+float: nanf
+double: nan
+```
+
 Common errors and quick fixes:
 
 - `ERROR: Invalid literal` for `-42` → type detection may reject the sign; allow
@@ -65,8 +100,16 @@ Common errors and quick fixes:
 - `char: Non displayable` when input is `'c'` → avoid using `atoi` on single
   character strings; detect length-1 char literals and use `literal[0]`.
 
-Debugging: add temporary prints or use `tester_improved.sh` (if present) to
+Debugging: add temporary prints or use `tester_improved.sh` / `tester.sh` to
 compare YOUR OUTPUT vs EXPECTED.
+
+Suggested check order:
+
+1. `make`
+2. `./conversion 0`
+3. `./conversion 42`
+4. `./conversion 3.14f`
+5. `./tester.sh` from the module root if you want the local automated check.
 
 ## ex01 — Serializer (details)
 
@@ -102,6 +145,53 @@ Notes and best practices:
 
 - Avoid printing from the `Serializer` class (no side effects).
 - Keep the methods `static` and document that the class is non-instantiable.
+
+## ex02 — Identifying Real Types (details)
+
+Goal: create a small polymorphic hierarchy and identify the real derived type
+behind a `Base*` or `Base&` using `dynamic_cast`.
+
+Files in the folder:
+
+- `Base.hpp` / `Base.cpp` — polymorphic base class with a virtual destructor.
+- `A.hpp`, `B.hpp`, `C.hpp` — empty derived classes used for runtime identification.
+- `main.cpp` — generates a random derived object and prints the detected type.
+
+Expected behavior:
+
+- `generate()` returns a random instance of `A`, `B`, or `C`.
+- `identify(Base* p)` prints the detected type from the pointer form.
+- `identify(Base& p)` prints the detected type from the reference form.
+- The base class must be polymorphic, otherwise `dynamic_cast` will not work.
+
+Implementation notes:
+
+- `Base` needs at least one virtual function; a virtual destructor is the usual choice.
+- Use `dynamic_cast<A*>(p)`, `dynamic_cast<B*>(p)`, `dynamic_cast<C*>(p)` for pointer identification.
+- Use `dynamic_cast<A&>(p)`, etc. for reference identification and catch `std::exception` if the cast fails.
+- The helper `generate()` typically uses `rand() % 3` to choose between `A`, `B`, and `C`.
+
+Example output:
+
+```bash
+Identifying base pointer:
+B
+
+Identifying base reference:
+B
+```
+
+Common errors and quick fixes:
+
+- `dynamic_cast` fails or always returns `NULL` → `Base` is probably not polymorphic.
+- Reference casts throw every time → the object is not actually one of the derived types, or the base type is incorrect.
+- Random output is always the same → check whether `srand(time(0))` is called before `generate()`.
+
+Suggested check order:
+
+1. `make`
+2. `./conversion`
+3. Run it a few times and confirm the output changes between `A`, `B`, and `C`.
 
 ## Tests and helper scripts
 
