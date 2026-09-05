@@ -23,7 +23,7 @@ void HumanB::setWeapon(Weapon &weapon)
 	this->weapon = &weapon;
 }
 
-void HumanB::attack()
+void HumanB::attack() const
 {
 	if (this->weapon)
 		std::cout << CYAN << this->name << RESET << " attacks with their " << PURPLE << this->weapon->getType() << RESET << std::endl;

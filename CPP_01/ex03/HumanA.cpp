@@ -1,10 +1,5 @@
 #include "HumanA.hpp" 
 
-HumanA::HumanA() : weapon(*(new Weapon()))
-{
-	this->name = "";
-}
-
 HumanA::HumanA(std::string name, Weapon &Weapon): weapon(Weapon)
 {
 	this->name = name;
@@ -16,7 +11,7 @@ HumanA::~HumanA()
 	return ;
 }
 
-void HumanA::attack()
+void HumanA::attack() const
 {
 	if (this->weapon.getType().empty())
 	{

@@ -6,7 +6,7 @@ Weapon::Weapon()
 	std::cout << BLUE << "Weapon Default Constructor called" << RESET << std::endl;
 }
 
-Weapon::Weapon(std::string type)
+Weapon::Weapon(const std::string& type)
 {
 	if (type.empty())
 		std::cout << RED << "Invalid weapon type" << RESET << std::endl;
@@ -29,7 +29,7 @@ const std::string& Weapon::getType(void) const
 	return (this->type);
 }
 
-void Weapon::setType(std::string type)
+void Weapon::setType(const std::string& type)
 {
 	if (type.empty())
 		std::cout << RED << "Invalid weapon type" << RESET << std::endl;
