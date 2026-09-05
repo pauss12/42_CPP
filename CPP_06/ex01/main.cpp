@@ -2,30 +2,61 @@
 #include <iostream>
 #include <string>
 
-static void print_data(const char *label, const Data &d)
+#include "Serializer.hpp"
+
+void print_data(const std::string& label, Data* d)
 {
-	std::cout << "--- " << label << " ---" << std::endl;
-	std::cout << "id:      " << d.identifier << std::endl;
-	std::cout << "content: " << d.content << std::endl << std::endl;
+	if (!d)
+	{
+		std::cout << RED << label << " [ERROR]: NULL Pointer" << RESET << std::endl;
+		return;
+	}
+	std::cout << label << std::endl;
+	std::cout << "id:      " << d->identifier << std::endl;
+	std::cout << "content: " << d->content << std::endl;
 }
 
-int main(void)
+int main()
 {
-	Data data;
+	Data original;
+	original.identifier = 42;
+	original.content = "Control Flow Obfuscation";
 
-	data.identifier = 42;
-	data.content = "Hello, World!";
+	print_data("--- Original ---", &original);
 
-	print_data("Original", data);
+	// 1. Valid Serialization
+	uintptr_t raw = Serializer::serialize(&original);
+	std::cout << "\nSerialized: 0x" << std::hex << raw << std::dec << std::endl;
 
-	std::cout << "It has been serialized into a uintptr_t" << std::endl << std::endl;
-	uintptr_t raw = Serializer::serialize(&data);
-	Data *deserialized = Serializer::deserialize(raw);
+	Data* deserialized = Serializer::deserialize(raw);
 
-	if (deserialized)
-		print_data("Deserialized", *deserialized);
+	// Validate before accessing memory
+	if (deserialized == &original)
+	{
+		std::cout << GREEN << "[SUCCESS] Pointers match!" << RESET << std::endl;
+		print_data("--- Deserialized ---", deserialized);
+	}
 	else
-		std::cerr << "Deserialization failed (null pointer)\n";
+	{
+		std::cout << RED << "[ERROR] Pointer mismatch detected!" << RESET << std::endl;
+	}
+
+	// 2. Controlled Corruption Test
+	std::cout << "\n--- Testing Corruption Handling ---" << std::endl;
+	uintptr_t corruptedRaw = raw + 100; // Simulated corrupt address
+	Data* corruptedPtr = Serializer::deserialize(corruptedRaw);
+
+	// CHECK FIRST: Never print/dereference corruptedPtr directly!
+	if (corruptedPtr != &original)
+	{
+		std::cout << YELLOW << "[CONTROLLED TEST] Corrupted address detected (0x" 
+				  << std::hex << corruptedRaw << std::dec 
+				  << "). Access blocked to prevent SEGV." << RESET << std::endl;
+	}
+	else
+	{
+		print_data("--- Corrupted Deserialized ---", corruptedPtr);
+	}
 
 	return 0;
 }
