@@ -25,11 +25,11 @@ void swap(T &a, T &b)
 
 	aux = a;
 	a = b;
-	b = aux;
+	b = aux;	
 }
 
 template <typename S>
-S min(S valor_1, S valor_2)
+const S& min(const S& valor_1, const S& valor_2)
 {
 	// Siempre devuelve el menor, si son iguales, devuelve el segundo
 	if (valor_1 < valor_2)
@@ -38,9 +38,9 @@ S min(S valor_1, S valor_2)
 }
 
 template <typename L>
-L max(L valor_1, L valor_2)
+const L& max(const L& valor_1, const L& valor_2)
 {
-	// Siempre devuelve el menor, si son iguales, devuelve el segundo
+	// Siempre devuelve el mayor, si son iguales, devuelve el segundo
 	if (valor_1 > valor_2)
 		return (valor_1);
 	return (valor_2);
