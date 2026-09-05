@@ -4,9 +4,11 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-#include <cmath>
 #include <limits>
 #include <iomanip>
+#include <climits>  // Gives INT_MIN and INT_MAX
+#include <cmath>    // Gives std::isnan, std::isinf
+#include <cctype>   // Gives std::isprint, std::isdigit
 
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m\033[1m"
@@ -21,11 +23,6 @@
 # define GRAY    "\x1B[38;2;176;174;174m"
 # define RESET "\033[0m"
 
-# define MIN_INT -2147483648
-# define MAX_INT 2147483647
-# define MIN_FLOAT -3.402823466e+38F
-# define MAX_FLOAT 3.402823466e+38F
-
 enum eType {
 	CHAR,
 	INT,
@@ -36,17 +33,13 @@ enum eType {
 	UNDEFINED
 };
 
-class ScalarConverter {
-	
+class ScalarConverter 
+{	
 	private:
 		ScalarConverter();
 		ScalarConverter(const ScalarConverter& other);
 		ScalarConverter& operator=(const ScalarConverter& other);
 		~ScalarConverter();
-		static void convertChar(const std::string& literal);
-		static void convertInt(const std::string& literal, int type);
-		static void convertFloat(const std::string& literal, int type);
-		static void convertDouble(const std::string& literal, int type);
 
 	public:
 		static void convert(const std::string& literal);

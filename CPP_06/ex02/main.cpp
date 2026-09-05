@@ -5,14 +5,14 @@
 
 Base* generate(void)
 {
-    int random = rand() % 3;
+	int random = rand() % 3;
 
-    if (random == 0)
-        return new A();
-    else if (random == 1)
-        return new B();
-    else
-        return new C();
+	if (random == 0)
+		return new A();
+	else if (random == 1)
+		return new B();
+	else
+		return new C();
 }
 
 void identify(Base* p)
@@ -56,19 +56,34 @@ void identify(Base& base)
 	std::cout << "NULL Type" << std::endl;
 }
 
+#include "Base.hpp"
+#include "A.hpp"
+#include "B.hpp"
+#include "C.hpp"
+
 int main()
 {
-	srand(time(0));
+	std::srand(std::time(NULL));
 
-	Base* base = generate();
-	
-	std::cout << "Identifying base pointer:" << std::endl;
-	identify(base);
+	std::cout << "--- TEST 1: Random Generation & Identification ---" << std::endl;
+	for (int i = 0; i < 5; ++i)
+	{
+		Base* randomInstance = generate();
 
-	std::cout << std::endl << "Identifying base reference:" << std::endl;
-	identify(*base);
+		std::cout << "Test #" << i + 1 << ":" << std::endl;
+		std::cout << "  Pointer   -> ";
+		identify(randomInstance);
+		std::cout << "  Reference -> ";
+		identify(*randomInstance);
 
-	delete base;
+		delete randomInstance;
+		std::cout << "------------------------------------" << std::endl;
+	}
 
-	return (0);
+	std::cout << "\n--- TEST 2: Null Pointer Handling ---" << std::endl;
+	Base* nullPtr = NULL;
+	std::cout << "  Pointer   -> ";
+	identify(nullPtr);
+
+	return 0;
 }

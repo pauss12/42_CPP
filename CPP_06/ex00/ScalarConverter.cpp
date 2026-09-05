@@ -99,7 +99,7 @@ static bool isIntegralValue(double value)
 	return (std::floor(value) == value);
 }
 
-void	ScalarConverter::convertChar(const std::string& literal)
+static void	convertChar(const std::string& literal)
 {
 	if (literal.size() == 3 && literal[0] == '\'' && literal[2] == '\'')
 	{
@@ -107,12 +107,12 @@ void	ScalarConverter::convertChar(const std::string& literal)
 		return;
 	}
 	if (literal.length() == 1 && !std::isdigit(static_cast<unsigned char>(literal[0])))
-    {
-        std::cout << "char: '" << literal[0] << "'" << std::endl;
-        return;
-    }
+	{
+		std::cout << "char: '" << literal[0] << "'" << std::endl;
+		return ;
+	}
 
-    double val = std::atof(literal.c_str());
+	double val = std::atof(literal.c_str());
 
 	if (!isIntegralValue(val))
 	{
@@ -120,26 +120,29 @@ void	ScalarConverter::convertChar(const std::string& literal)
 		return;
 	}
 
-    // Si es NaN, Inf o se sale del rango de la tabla ASCII (0 a 127)
-    if (std::isnan(val) || std::isinf(val) || val < 0 || val > 127)
-    {
-        std::cout << "char: impossible" << std::endl;
-        return;
-    }
+	// Si es NaN, Inf o se sale del rango de la tabla ASCII (0 a 127)
+	if (std::isnan(val) || std::isinf(val) || val < 0 || val > 127)
+	{
+		std::cout << "char: impossible" << std::endl;
+		return;
+	}
 
-    int iv = static_cast<int>(val);
+	int iv = static_cast<int>(val);
 	if (iv == 127)
 	{
 		std::cout << "char: impossible" << std::endl;
 		return;
 	}
-    if (std::isprint(iv))
-        std::cout << "char: '" << static_cast<char>(iv) << "'" << std::endl;
-    else
-        std::cout << "char: Non displayable" << std::endl;
+	if (std::isprint(iv))
+		std::cout << "char: '" << static_cast<char>(iv) << "'" << std::endl;
+	else
+		std::cout << "char: Non displayable" << std::endl;
 }
 
-void ScalarConverter::convertInt(const std::string& literal, int type)
+// ##############################################################################################
+// ################################ CONVERT INT #################################################
+// ##############################################################################################
+static void convertInt(const std::string& literal, int type)
 {
 	if (type == CHAR)
 	{
@@ -152,11 +155,11 @@ void ScalarConverter::convertInt(const std::string& literal, int type)
 
 	double val = std::atof(literal.c_str());
 
-    if (std::isnan(val) || std::isinf(val) || val < MIN_INT || val > MAX_INT || !isIntegralValue(val))
-    {
-        std::cout << "int: impossible" << std::endl;
-        return;
-    }
+	if (std::isnan(val) || std::isinf(val) || val < INT_MIN || val > INT_MAX)
+	{
+		std::cout << "int: impossible" << std::endl;
+		return ;
+	}
 
 	if (type == INT && !isatty(STDOUT_FILENO))
 		std::cout << "int: " << static_cast<int>(val) << " ";
@@ -164,7 +167,10 @@ void ScalarConverter::convertInt(const std::string& literal, int type)
 		std::cout << "int: " << static_cast<int>(val) << std::endl;
 }
 
-void ScalarConverter::convertFloat(const std::string& literal, int type)
+// ##############################################################################################
+// ################################ CONVERT FLOAT ###############################################
+// ##############################################################################################
+static void convertFloat(const std::string& literal, int type)
 {
 	if (type == CHAR)
 	{
@@ -176,32 +182,34 @@ void ScalarConverter::convertFloat(const std::string& literal, int type)
 	}
 
 	// 1. Manejo explícito de pseudo-literals (nan, inf)
-    if (type == NOT_A_NUMBER || type == INF)
-    {
-        if (literal.find("-inf") != std::string::npos)
-            std::cout << "float: -inff" << std::endl;
-        else if (literal.find("inf") != std::string::npos)
-            std::cout << "float: inff" << std::endl;
-        else
-            std::cout << "float: nanf" << std::endl;
-        return;
-    }
+	if (type == NOT_A_NUMBER || type == INF)
+	{
+		if (literal.find("-inf") != std::string::npos)
+			std::cout << "float: -inff" << std::endl;
+		else if (literal.find("inf") != std::string::npos)
+			std::cout << "float: inff" << std::endl;
+		else
+			std::cout << "float: nanf" << std::endl;
+		return ;
+	}
 
-    // 2. Conversión normal para números
-    double valor_double = std::atof(literal.c_str());
+	// 2. Conversión normal para números
+	double valor_double = std::atof(literal.c_str());
 
-    float f = static_cast<float>(valor_double);
-    
-    std::cout << "float: " << f;
-    
-    // Imprime .0 solo si es entero puro
-    if (f == static_cast<long long>(f))
-        std::cout << ".0";
-        
-    std::cout << "f" << std::endl;
+	float f = static_cast<float>(valor_double);
+
+	std::cout << "float: " << f;
+
+	// Imprime .0 solo si es entero puro
+	if (f == static_cast<long long>(f) && std::abs(f) < 1e6f)
+		std::cout << ".0";
+	std::cout << "f" << std::endl;
 }
 
-void ScalarConverter::convertDouble(const std::string& literal, int type)
+// ##############################################################################################
+// ################################ CONVERT DOUBLE ##############################################
+// ##############################################################################################
+static void convertDouble(const std::string& literal, int type)
 {
 	if (type == CHAR)
 	{
@@ -209,36 +217,30 @@ void ScalarConverter::convertDouble(const std::string& literal, int type)
 		if (literal.size() == 3 && literal[0] == '\'' && literal[2] == '\'')
 			value = literal[1];
 		std::cout << "double: " << static_cast<int>(value) << ".0" << std::endl;
-		return;
+		return ;
 	}
 
-	// 1. Manejo explícito de pseudo-literals (nan, inf)
-    if (type == NOT_A_NUMBER || type == INF)
-    {
-        if (literal.find("-inf") != std::string::npos)
-            std::cout << "double: -inf" << std::endl;
-        else if (literal.find("inf") != std::string::npos)
-            std::cout << "double: inf" << std::endl;
-        else
-            std::cout << "double: nan" << std::endl;
-        return;
-    }
-
-    // 2. Conversión normal para números
-    double valor_double = std::atof(literal.c_str());
-
-	if (type == FLOAT && !isIntegralValue(valor_double))
+	if (type == NOT_A_NUMBER || type == INF)
 	{
-		std::cout << "double: impossible" << std::endl;
-		return;
+		if (literal.find("-inf") != std::string::npos)
+			std::cout << "double: -inf" << std::endl;
+		else if (literal.find("inf") != std::string::npos)
+			std::cout << "double: inf" << std::endl;
+		else
+			std::cout << "double: nan" << std::endl;
+		return ;
 	}
 
-    std::cout << "double: " << valor_double;
+	// 2. Conversión normal para números
+	double valor_double = std::atof(literal.c_str());
 
-    if (valor_double == static_cast<long long>(valor_double))
-        std::cout << ".0";
-        
-    std::cout << std::endl;
+	std::cout << "double: " << valor_double;
+
+	if (valor_double == static_cast<long long>(valor_double) && std::abs(valor_double) < 1e6)
+		std::cout << ".0";
+	std::cout << std::endl;
+
+	std::cout << std::endl;
 }
 
 // CONVERSION FUNCTION ----------------------------------------------------------------------------------------------------

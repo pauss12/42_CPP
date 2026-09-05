@@ -1,5 +1,6 @@
 # include "Serializer.hpp"
 
+//! Nunca se va a ver el mensaje de constructor, destructor, etc. porque la clase es estática y no se puede instanciar.
 Serializer::Serializer() 
 {
 	std::cout << LIGHT_BLUE << "Serializer default constructor has been called " << RESET << std::endl;
