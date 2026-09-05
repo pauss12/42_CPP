@@ -1,12 +1,14 @@
 // Constructor sin parametros
 template <typename T>
-Array<T>::Array() : _array(NULL), _size(0)
+Array<T>::Array() : _array(new T[0]()), _size(0)
 {
+    std::cout << LIGHT_BLUE<< "Default constructor called" << RESET << std::endl;
 }
 
 template <typename T>
 Array<T>::Array(unsigned int n) : _size(n)
 {
+    std::cout << BLUE << "Parameterized constructor called with size: " << n << RESET << std::endl;
     _array = new T[n]();
 }
 
@@ -16,6 +18,7 @@ Array<T>::Array(const Array &other) : _size(other._size)
     _array = new T[_size]();
     for (unsigned int i = 0; i < _size; i++)
         _array[i] = other._array[i];
+    std::cout << CYAN << "Copy constructor called" << RESET << std::endl;
 }
 
 template <typename T>
@@ -28,6 +31,7 @@ Array<T> &Array<T>::operator=(const Array &other)
         _array = new T[_size]();
         for (unsigned int i = 0; i < _size; i++)
             _array[i] = other._array[i];
+        std::cout << BLUE << "Assignment operator called" << RESET << std::endl;
     }
     return (*this);
 }
@@ -35,6 +39,7 @@ Array<T> &Array<T>::operator=(const Array &other)
 template <typename T>
 Array<T>::~Array()
 {
+    std::cout << PURPLE << "Destructor called" << RESET << std::endl;
     delete[] _array;
 }
 

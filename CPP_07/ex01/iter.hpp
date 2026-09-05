@@ -19,11 +19,13 @@
 # define RESET "\033[0m"
 
 template <typename T, typename F>
-void	iter(T *array, size_t len, F f)
+void	iter(T *array, const size_t len, F f)
 {
 	size_t	i;
 
 	i = 0;
+	if (!array || !len)
+		return ;
 	while (i < len)
 	{
 		f(array[i]);
